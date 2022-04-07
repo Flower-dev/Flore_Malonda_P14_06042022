@@ -1,14 +1,11 @@
-import './App.css';
+import { BrowserRouter } from "react-router-dom";
+import Router from './routes/routes'
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <p>
-          Welcome to RHNet
-        </p>
-      </header>
-    </div>
+    <BrowserRouter>
+      <Router/>
+    </BrowserRouter>
   );
 }
 
