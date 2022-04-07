@@ -1,5 +1,12 @@
+// routes
+import { Link } from 'react-router-dom';
+
 export default function EmployeeList() {
     return (
-        <h1>PAGE LISTE EMPLOYES</h1>
+        <div id='employee-div' className='container'>
+            <h1>Current Employees</h1>
+            {/* <table id='employee-table' className='display'></table> */}
+            <Link to='/'>Home</Link>
+        </div>
     )
 }
