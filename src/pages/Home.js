@@ -5,7 +5,7 @@ import CreateEmployee from '../components/CreateEmployee';
 export default function Home() {
     return (
         <>
-            <div classNameName='title'>
+            <div className='title'>
                 <h1>HRnet</h1>
                 <nav
                     style={{
@@ -16,7 +16,7 @@ export default function Home() {
                     <Link to='employeeList'>View Current Employees</Link> 
                 </nav>
             </div>
-            <div classNameName='container'>
+            <div className='container'>
                 <h2>Create Employee</h2>
                 <CreateEmployee/>
             </div>
