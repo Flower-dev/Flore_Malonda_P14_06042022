@@ -3,31 +3,31 @@ export default function CreateEmployee() {
         <>
             <form action="#" id="create-employee">
 
-                <label for="first-name">First Name</label>
+                <label>First Name</label>
                 <input type="text" id="first-name" />
 
-                <label for="last-name">Last Name</label>
+                <label>Last Name</label>
                 <input type="text" id="last-name" />
 
-                <label for="date-of-birth">Date of Birth</label>
+                <label>Date of Birth</label>
                 <input id="date-of-birth" type="text" />
 
-                <label for="start-date">Start Date</label>
+                <label>Start Date</label>
                 <input id="start-date" type="text" />
 
                 <fieldset className="address">
                     <legend>Address</legend>
 
-                    <label for="street">Street</label>
+                    <label>Street</label>
                     <input id="street" type="text" />
 
-                    <label for="city">City</label>
+                    <label>City</label>
                     <input id="city" type="text" />
 
-                    <label for="state">State</label>
+                    <label>State</label>
                     <select name="state" id="state"></select>
 
-                    <label for="zip-code">Zip Code</label>
+                    <label>Zip Code</label>
                     <input id="zip-code" type="number" />
                 </fieldset>
 
