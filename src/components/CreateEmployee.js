@@ -1,46 +1,35 @@
+// components
+import Select from './Select';
+// custom 
+import '../custom/components/createEmployee.scss';
+// ----------------------------------------
+
 export default function CreateEmployee() {
     return (
-        <>
+        <div className="form-container">
             <form action="#" id="create-employee">
 
-                <label>First Name</label>
-                <input type="text" id="first-name" />
-
-                <label>Last Name</label>
-                <input type="text" id="last-name" />
-
+                <input type="text" className='inputForm' placeholder="Jane" />
+                <input type="text" className='inputForm' placeholder="Smith" />
+                
                 <label>Date of Birth</label>
                 <input id="date-of-birth" type="text" />
 
                 <label>Start Date</label>
                 <input id="start-date" type="text" />
 
-                <fieldset className="address">
-                    <legend>Address</legend>
+                <input type="text" className='inputForm' placeholder="Street" />
+                <input type="text" className='inputForm' placeholder="City" />
 
-                    <label>Street</label>
-                    <input id="street" type="text" />
+                <label>State</label>
+                <Select/>
 
-                    <label>City</label>
-                    <input id="city" type="text" />
-
-                    <label>State</label>
-                    <select name="state" id="state"></select>
-
-                    <label>Zip Code</label>
-                    <input id="zip-code" type="number" />
-                </fieldset>
+                <input type="number" className='inputForm' placeholder="Zip Code" />
 
                 <label for="department">Department</label>
-                <select name="department" id="department">
-                    <option>Sales</option>
-                    <option>Marketing</option>
-                    <option>Engineering</option>
-                    <option>Human Resources</option>
-                    <option>Legal</option>
-                </select>
+                <Select/>
             </form>
-            <button onclick="saveEmployee()">Save</button>
-        </>
+            <button className='button-save' onclick="saveEmployee()">Save</button>
+        </div>
     )
 }

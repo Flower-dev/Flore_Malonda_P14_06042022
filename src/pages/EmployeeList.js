@@ -8,7 +8,9 @@ export default function EmployeeList() {
         <div id='employee-div' className='container'>
             <h1>Current Employees</h1>
             <TableList/>
-            <Link to='/'>Home</Link>
+            <button className='button-nav'>
+                    <Link to='/' className='link-button'>Home</Link> 
+            </button>
         </div>
     )
 }

@@ -1,26 +1,24 @@
+// routes
 import { Link } from 'react-router-dom';
 // components
 import CreateEmployee from '../components/CreateEmployee';
+// custom
+import '../custom/pages/home.scss';
 
 export default function Home() {
     return (
-        <>
+        <div className='container-max'>
             <div className='title'>
                 <h1>HRnet</h1>
-                <nav
-                    style={{
-                    borderBottom: 'solid 1px',
-                    paddingBottom: '1rem',
-                    }}
-                >
-                    <Link to='employeeList'>View Current Employees</Link> 
-                </nav>
+                <button className='button-nav'>
+                    <Link to='employeeList' className='link-button'>View Current Employees</Link> 
+                </button>
             </div>
-            <div className='container'>
+            <div className='container-home-form'>
                 <h2>Create Employee</h2>
                 <CreateEmployee/>
             </div>
             {/* <div id='confirmation' className='modal'>Employee Created!</div> */}
-        </>
+        </div>
     )
 }
