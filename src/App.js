@@ -1,17 +1,19 @@
 // routes
-import { BrowserRouter } from "react-router-dom";
+import { BrowserRouter } from 'react-router-dom';
 import Router from './routes/routes'
-
+// components
+import Header from './components/Header';
 // custom
 import './App.scss';
 // ---------------------------------------------
 function App() {
   return (
-    <BrowserRouter>
-      <div className="container-max">
+    <div className="container-max">
+      <BrowserRouter>
+        <Header/>
         <Router/>
-      </div>
-    </BrowserRouter>
+      </BrowserRouter>
+    </div>
   );
 }
 
