@@ -14,10 +14,9 @@ export default function Home() {
                     <Link to='employeeList' className='link-button'>View Current Employees</Link> 
                 </button>
             </div>
-            <div className='container-home-form'>
-                <h2>Create Employee</h2>
-                <CreateEmployee/>
-            </div>
+            <h2>Create Employee</h2>
+            <CreateEmployee/>
+         
             {/* <div id='confirmation' className='modal'>Employee Created!</div> */}
         </div>
     )

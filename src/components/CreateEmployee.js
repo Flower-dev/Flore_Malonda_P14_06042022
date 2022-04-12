@@ -1,4 +1,7 @@
+// react
+import { Fragment } from 'react';
 // components
+import DatePicker from './DatePicker';
 import Select from './Select';
 // custom 
 import '../custom/components/createEmployee.scss';
@@ -6,17 +9,15 @@ import '../custom/components/createEmployee.scss';
 
 export default function CreateEmployee() {
     return (
-        <div className="form-container">
+        <Fragment>
             <form action="#" id="create-employee">
-
                 <input type="text" className='inputForm' placeholder="Jane" />
                 <input type="text" className='inputForm' placeholder="Smith" />
                 
                 <label>Date of Birth</label>
-                <input id="date-of-birth" type="text" />
+                <DatePicker/>
 
-                <label>Start Date</label>
-                <input id="start-date" type="text" />
+                <DatePicker/>
 
                 <input type="text" className='inputForm' placeholder="Street" />
                 <input type="text" className='inputForm' placeholder="City" />
@@ -29,7 +30,7 @@ export default function CreateEmployee() {
                 <label for="department">Department</label>
                 <Select/>
             </form>
-            <button className='button-save' onclick="saveEmployee()">Save</button>
-        </div>
+            <button className='button-save' >Save</button>
+        </Fragment>
     )
 }
