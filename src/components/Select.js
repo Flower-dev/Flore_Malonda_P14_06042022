@@ -1,81 +1,68 @@
-export default function Select({id, title, options}) {
+// react 
+import { useState } from 'react';
+// custom
+import '../custom/components/select.scss';
 
-    // const createOptions = () => {
-    //     return filteredOptions.map((o) => {
-    //         const option = document.createElement('span');
-    //         option.style.cursor = 'pointer'
-    //         option.classList.add('select-option');
-    //         option.textContent = o;
-    //         option.addEventListener('click', () => {
-    //             this.filterRecipes(o)
-    //         })
-    //         return option;
-    //     });
-    // }
+export default function Select({ options, id, initialInputValue, onChange }) {
 
-    // const filterOptions = (value) => {
-    //     if (value === '' || value.length < 3) {
-    //         this.filteredOptions = this.options
-    //         return
-    //     }
-    //     this.filteredOptions = this.options.filter((o) => o.toLowerCase().trim().includes(value))
-    // }
+    const [inputValue, setInputValue] = useState(
+        initialInputValue ? initialInputValue : ''
+    );
+   
+    const handleClick = (
+        clickEvent,
+        optionValue,
+        updateInputWith,
+        setPageSize
+    ) => {
+        clickEvent.stopPropagation();
+    
+        const DropdownMenu = document.querySelector(`.DropdownMenu--${id}`);
+    
+        if (DropdownMenu.hasAttribute('open')) {
+          DropdownMenu.removeAttribute('open');
+        } else {
+          DropdownMenu.setAttribute('open', '');
+        }
+    
+        if (optionValue) {
+          updateInputWith(optionValue);
+        }
+        if (setPageSize) {
+          setPageSize(optionValue);
+        }
+    };
 
-    // const createTitle = () => {
-    //     const parser = new DOMParser()
-    //     let dom = `<div class="select-title-content">
-    //             <span>${this.title}</span>
-    //             <span class="caret chevron-bottom">&#8250;</span>
-    //         </div>`
-    //     if (!this.opened) {
-    //         return parser.parseFromString(dom, 'text/html').querySelector('.select-title-content')
-    //     }
-
-    //     dom = `<div class="select-title-content">
-    //         <input placeholder="${this.title}" autofocus/>
-    //         <span class="caret chevron-top">&#8250;</span>
-    //     </div>`
-    //     dom = parser.parseFromString(dom, 'text/html').querySelector('.select-title-content')
-
-    //     dom.querySelector('input').addEventListener('input', (e) => {
-    //         this.filterOptions(e.target.value.toLowerCase().trim());
-    //         this.renderOptions();
-    //     })
-    //     return dom
-    // }
-
-    // const renderOptions = () => {
-    //     const selectOptions = this.select.querySelector('.select-options')
-    //     if (!this.opened) {
-    //         selectOptions.style.display = 'none'
-    //         return;
-    //     }
-    //     selectOptions.style.display = 'flex'
-    //     const options = this.createOptions()
-    //     selectOptions.innerHTML = ''
-    //     options.forEach(o => selectOptions.appendChild(o))
-    // }
-
-    // const renderTitle = ($selectTitle) => {
-    //     const $newSelectTitleChild = this.createTitle()
-    //     $selectTitle.innerHTML = ''
-    //     $selectTitle.appendChild($newSelectTitleChild)
-    //     if (this.opened) {
-    //         this.select.style.width = '400px';
-    //     } else {
-    //         this.select.style.width = '170px';
-    //     }
-    // }
     return (
-        <select name="select" id="select">
-            <option>Sales</option>
-            <option>Marketing</option>
-            <option>Engineering</option>
-            <option>Human Resources</option>
-            <option>Legal</option>
-        </select>
-    )
+        <>
+          <div className={`DropdownMenu DropdownMenu--${id}`}>
+            <button
+              type='button'
+              className='DropdownMenu__button'
+              onClick={handleClick}
+            >
+              {inputValue !== '' ? inputValue : `Click to select a ${id}`}
+            </button>
+            <ul className='DropdownMenu__options'>
+                {options.map((option) => {
+                    const optionValue =
+                    typeof option === 'object' ? option.name : option;
+                    return (
+                    <li
+                        className='DropdownMenu__option'
+                        key={optionValue}
+                        onClick={(e) =>
+                        handleClick(e, optionValue, setInputValue, onChange)
+                        }
+                    >
+                        {optionValue}
+                    </li>
+                    );
+                })}
+            </ul>
+          </div>
+          <input type='hidden' id={id} value={inputValue} data-testid={id}  className='inputForm'/>
+        </>
+    );
 }
-
-
 

@@ -2,6 +2,8 @@
 import { Fragment } from 'react';
 // hooks
 import useModal from '../hooks/useModal';
+// mocks
+import state from '../_mocks_/data';
 // components
 import DatePicker from './DatePicker';
 import Select from './Select';
@@ -20,27 +22,34 @@ export default function CreateEmployee() {
         console.log('new employee')
     }
 
+    const department = [
+        'Sales',
+        'Marketing',
+        'Engineering',
+        'Human Ressources',
+        'Legal',
+    ];
+
+
     return (
         <Fragment>
-            <form action="#" id="create-employee">
-                <input type="text" className='inputForm' placeholder="Jane" />
-                <input type="text" className='inputForm' placeholder="Smith" />
+            <form>
+                <input type='text' className='inputForm' placeholder='Jane' />
+                <input type='text' className='inputForm' placeholder='Smith' />
                 
                 <label>Date of Birth</label>
                 <DatePicker/>
 
                 <DatePicker/>
 
-                <input type="text" className='inputForm' placeholder="Street" />
-                <input type="text" className='inputForm' placeholder="City" />
+                <input type='text' className='inputForm' placeholder='Street' />
+                <input type='text' className='inputForm' placeholder='City' />
 
-                <label>State</label>
-                <Select/>
+                <Select options={state}/>
 
-                <input type="number" className='inputForm' placeholder="Zip Code" />
+                <input type='number' className='inputForm' placeholder='Zip Code' />
 
-                <label for="department">Department</label>
-                <Select/>
+                <Select options={department}/>
                 <button className='button-save' onClick={handleSubmit}>Save</button>
             </form>
 
