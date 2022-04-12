@@ -16,8 +16,6 @@ export default function Home() {
             </div>
             <h2>Create Employee</h2>
             <CreateEmployee/>
-         
-            {/* <div id='confirmation' className='modal'>Employee Created!</div> */}
         </div>
     )
 }

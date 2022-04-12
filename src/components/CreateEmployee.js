@@ -1,13 +1,19 @@
 // react
 import { Fragment } from 'react';
+// hooks
+import useModal from '../hooks/useModal';
 // components
 import DatePicker from './DatePicker';
 import Select from './Select';
+import Modal from './Modal';
+// assets
+import Confirmation from '../assets/img/confirmation.png';
 // custom 
 import '../custom/components/createEmployee.scss';
 // ----------------------------------------
 
 export default function CreateEmployee() {
+    const { isShowing, toggle } = useModal();
     return (
         <Fragment>
             <form action="#" id="create-employee">
@@ -30,7 +36,16 @@ export default function CreateEmployee() {
                 <label for="department">Department</label>
                 <Select/>
             </form>
-            <button className='button-save' >Save</button>
+            <button className='button-save' onClick={toggle}>Save</button>
+
+            <Modal 
+                isShowing={isShowing} 
+                hide={toggle}
+                title='Success' 
+                info='Congratulations, a new employee has been created! '
+                img={Confirmation}
+                alt='success'
+            />
         </Fragment>
     )
 }
