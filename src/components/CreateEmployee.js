@@ -14,6 +14,12 @@ import '../custom/components/createEmployee.scss';
 
 export default function CreateEmployee() {
     const { isShowing, toggle } = useModal();
+    
+    const handleSubmit = () => {
+        toggle()
+        console.log('new employee')
+    }
+
     return (
         <Fragment>
             <form action="#" id="create-employee">
@@ -35,8 +41,8 @@ export default function CreateEmployee() {
 
                 <label for="department">Department</label>
                 <Select/>
+                <button className='button-save' onClick={handleSubmit}>Save</button>
             </form>
-            <button className='button-save' onClick={toggle}>Save</button>
 
             <Modal 
                 isShowing={isShowing} 

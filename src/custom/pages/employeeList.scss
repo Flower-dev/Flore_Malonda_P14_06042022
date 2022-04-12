@@ -1,0 +1,16 @@
+.table-container {
+    width: 100%;
+    padding-left: 20px;
+    margin-top: 8%;
+    border: 1px solid lightgrey;
+    border-radius: 5px;
+    box-shadow: 5px 5px 5px lightgrey;
+}
+
+@media (max-width: 520px) {
+    .table-container {
+        width: 90%;
+        margin-left: 10px;
+    }
+   
+}
