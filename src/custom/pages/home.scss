@@ -1,22 +1,29 @@
-.container-home-form {
-    background-color: red;
+.home-container {
     display: flex;
-    flex-direction: column;
-    // align-items: center;
+    flex-direction: row;
+    width: 100%;
+    padding-left: 20px;
 }
 
-.button-nav {
-    border-radius: 20px;
-	border: 1px solid #012326;
-	text-transform: uppercase;
-	transition: transform 80ms ease-in;
-    cursor: pointer;
+.home-presentation {
+    width: 50%;
 }
 
-.link-button {
-    text-decoration: none;
-    color: #012326;
-    font-size: 12px;
-	font-weight: bold;
-	letter-spacing: 1px;
+.home-form {
+    width: 50%;
+}
+
+@media (max-width: 520px) {
+    .home-container {
+        display: flex;
+        flex-direction: column;
+        padding-left: 0px;
+    }
+    .home-presentation {
+        width: 100%;
+    }
+    
+    .home-form {
+        width: 100%;
+    }
 }

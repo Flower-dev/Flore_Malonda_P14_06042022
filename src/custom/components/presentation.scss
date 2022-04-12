@@ -1,0 +1,13 @@
+.presentation-img {
+    width: 100%;
+}
+
+.presentation-title {
+    text-align: center;
+}
+
+@media (max-width: 520px) {
+    .presentation-img {
+        display: none;
+    }
+}
