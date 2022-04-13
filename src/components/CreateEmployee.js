@@ -18,8 +18,8 @@ export default function CreateEmployee() {
     const { isShowing, toggle } = useModal();
     
     const handleSubmit = () => {
-        toggle()
         console.log('new employee')
+        toggle()
     }
 
     const department = [
