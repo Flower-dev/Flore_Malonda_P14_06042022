@@ -1,5 +1,4 @@
 form {
-    background-color: #FFFFFF;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -7,16 +6,17 @@ form {
     padding: 0 50px;
     height: 100%;
     text-align: center;
-
-    .inputForm {
-        background-color: #eee;
-        border: none;
-        border-radius: 5px;
-        padding: 12px 15px;
-        margin: 8px 0;
-        width: 100%;
-    }
 }
+
+.inputForm {
+    background-color: #eee;
+    border: none;
+    border-radius: 5px;
+    padding: 12px 15px;
+    margin: 8px 0;
+    width: 94%;
+}
+
 
 .button-save {
 	border-radius: 20px;

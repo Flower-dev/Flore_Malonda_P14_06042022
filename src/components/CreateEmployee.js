@@ -45,11 +45,11 @@ export default function CreateEmployee() {
                 <input type='text' className='inputForm' placeholder='Street' />
                 <input type='text' className='inputForm' placeholder='City' />
 
-                <Select options={state}/>
+                <Select options={state} />
 
                 <input type='number' className='inputForm' placeholder='Zip Code' />
 
-                <Select options={department}/>
+                <Select options={department} />
                 <button className='button-save' onClick={handleSubmit}>Save</button>
             </form>
 
