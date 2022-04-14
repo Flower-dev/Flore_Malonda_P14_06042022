@@ -2,12 +2,14 @@
 import { Fragment } from 'react';
 // hooks
 import useModal from '../hooks/useModal';
-// mocks
+// mocks data
 import state from '../_mocks_/data';
 // components
 import DatePicker from './DatePicker';
 import Select from './Select';
 import Modal from './Modal';
+import FormInput from './FormInput';
+import Form from './Form';
 // assets
 import Confirmation from '../assets/img/confirmation.png';
 // custom 
@@ -16,11 +18,30 @@ import '../custom/components/createEmployee.scss';
 
 export default function CreateEmployee() {
     const { isShowing, toggle } = useModal();
+
+    const initialValues = {
+        firstName: '',
+        lastName: '',
+        startDate: '',
+        department: '',
+        dateOfBirth: '',
+        street: '',
+        city: '',
+        state: '',
+        zipCode: '',
+    };
+
+    const submit = () => {
+        <Modal 
+            isShowing={isShowing} 
+            hide={toggle}
+            title='Success' 
+            info='Congratulations, a new employee has been created! '
+            img={Confirmation}
+            alt='success'
+        />
+      };
     
-    const handleSubmit = () => {
-        console.log('new employee')
-        toggle()
-    }
 
     const department = [
         'Sales',
@@ -33,25 +54,43 @@ export default function CreateEmployee() {
 
     return (
         <Fragment>
-            <form>
-                <input type='text' className='inputForm' placeholder='Jane' />
-                <input type='text' className='inputForm' placeholder='Smith' />
-                
+            <Form submit={submit} initialValues={initialValues}>
+                <FormInput 
+                    placeholder='First Name' 
+                    type='text'
+                    name='firstName'
+                />
+                <FormInput
+                    placeholder='Last Name'
+                    type='text'
+                    name='lastName'
+                />      
                 <label>Date of Birth</label>
                 <DatePicker/>
-
                 <DatePicker/>
-
-                <input type='text' className='inputForm' placeholder='Street' />
-                <input type='text' className='inputForm' placeholder='City' />
-
+                <FormInput 
+                    placeholder='Street'
+                    type='text'
+                    name='street'
+                />
+                <FormInput 
+                    placeholder='City'
+                    type='text'
+                    name='city'
+                />
                 <Select options={state} />
-
-                <input type='number' className='inputForm' placeholder='Zip Code' />
-
+                <FormInput 
+                    placeholder='Zip Code'
+                    type='number' 
+                    name='zipCode'
+                />
                 <Select options={department} />
-                <button className='button-save' onClick={handleSubmit}>Save</button>
-            </form>
+            </Form>
+
+
+            <button type="button" onClick={toggle}>
+                Open Modal
+            </button> 
 
             <Modal 
                 isShowing={isShowing} 
@@ -61,6 +100,8 @@ export default function CreateEmployee() {
                 img={Confirmation}
                 alt='success'
             />
+
+            
         </Fragment>
     )
 }
