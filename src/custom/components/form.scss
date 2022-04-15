@@ -1,0 +1,36 @@
+form {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    padding: 0 50px;
+    height: 100%;
+    text-align: center;
+}
+
+.button-save {
+	border-radius: 20px;
+	border: 1px solid #012326;
+	background-color: #012326;
+	color: #FFFFFF;
+	font-size: 12px;
+	font-weight: bold;
+	padding: 12px 45px;
+	letter-spacing: 1px;
+	text-transform: uppercase;
+    margin-top: 30px;
+    cursor: pointer;
+
+    &:active {
+        transform: scale(0.95);
+    }
+    
+    &:focus {
+        outline: none;
+    }
+    
+    &.ghost {
+        background-color: transparent;
+        border-color: #FFFFFF;
+    }
+}

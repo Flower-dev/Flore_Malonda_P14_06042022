@@ -1,19 +1,19 @@
 // react
 import { Fragment } from 'react';
 // hooks
-import useModal from '../hooks/useModal';
+import useModal from '../../hooks/useModal';
 // mocks data
-import state from '../_mocks_/data';
+import state from '../../_mocks_/data';
 // components
-import DatePicker from './DatePicker';
-import Select from './Select';
-import Modal from './Modal';
-import FormInput from './FormInput';
-import Form from './Form';
+import DatePicker from '../../components/DatePicker';
+import Select from '../../components/Select';
+import Modal from '../../components/Modal';
+import FormInput from '../../components/FormInput';
+import Form from '../../components/Form';
 // assets
-import Confirmation from '../assets/img/confirmation.png';
+import Confirmation from '../../assets/img/confirmation.png';
 // custom 
-import '../custom/components/createEmployee.scss';
+import '../../custom/components/createEmployee.scss';
 // ----------------------------------------
 
 export default function CreateEmployee() {
@@ -78,13 +78,21 @@ export default function CreateEmployee() {
                     type='text'
                     name='city'
                 />
-                <Select options={state} />
+                <Select 
+                    options={state} 
+                    name='state'
+                    id='state'
+                />
                 <FormInput 
                     placeholder='Zip Code'
                     type='number' 
                     name='zipCode'
                 />
-                <Select options={department} />
+                <Select 
+                    options={department} 
+                    name='department'
+                    id='department'
+                />
             </Form>
 
 

@@ -3,7 +3,7 @@ import { useState } from 'react';
 // custom
 import '../custom/components/select.scss';
 
-export default function Select({ options, id, initialInputValue, onChange }) {
+export default function Select({ options, id, initialInputValue, onChange, name }) {
 
     const [inputValue, setInputValue] = useState(
         initialInputValue ? initialInputValue : ''
@@ -17,7 +17,7 @@ export default function Select({ options, id, initialInputValue, onChange }) {
     ) => {
         clickEvent.stopPropagation();
     
-        const DropdownMenu = document.querySelector(`.DropdownMenu--${id}`);
+        const DropdownMenu = document.querySelector('.DropdownMenu');
     
         if (DropdownMenu.hasAttribute('open')) {
           DropdownMenu.removeAttribute('open');
@@ -35,14 +35,14 @@ export default function Select({ options, id, initialInputValue, onChange }) {
 
     return (
         <>
-			<div className={`DropdownMenu DropdownMenu--${id}`}>
+			<div className='DropdownMenu'>
 				<button
 					type='button'
 					className='DropdownMenu__button'
 					onClick={handleClick}
 				>
-					{inputValue !== '' ? inputValue : `Click to select a ${id}`}
-				</button>
+					{inputValue !== '' ? inputValue : `Click to select a ${name}`}
+				</button> 
 				<ul className='DropdownMenu__options'>
 					{options.map((option) => {
 						const optionValue =
@@ -61,7 +61,7 @@ export default function Select({ options, id, initialInputValue, onChange }) {
 					})}
 				</ul>
 			</div>
-          <input type='hidden' id={id} value={inputValue} data-testid={id}  />
+          <input type='hidden' id={id} value={inputValue} data-testid={id} name={name} />
         </>
     );
 }

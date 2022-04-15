@@ -1,5 +1,6 @@
 import { useContext } from 'react';
 import { FormContext } from './Form';
+import '../custom/components/input.scss';
 
 export default function FormInput({ type, name, placeholder }) {
 

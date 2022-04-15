@@ -1,5 +1,5 @@
 // components
-import CreateEmployee from '../components/CreateEmployee';
+import CreateEmployee from './components/CreateEmployee';
 import Presentation from '../components/Presentation';
 // custom
 import '../custom/pages/home.scss';

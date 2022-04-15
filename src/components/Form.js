@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 // hooks
 import useModal from '../hooks/useModal';
-
+// custom
+import '../custom/components/form.scss';
 // -----------------------------------------------
 
 
