@@ -3,9 +3,9 @@ import { Fragment } from 'react';
 // hooks
 import useModal from '../../hooks/useModal';
 // mocks data
-import state from '../../_mocks_/data';
+import {state, department} from '../../_mocks_/data';
 // components
-import DatePicker from '../../components/DatePicker';
+// import DatePicker from '../../components/DatePicker';
 import Select from '../../components/Select';
 import Modal from '../../components/Modal';
 import FormInput from '../../components/FormInput';
@@ -36,22 +36,12 @@ export default function CreateEmployee() {
             isShowing={isShowing} 
             hide={toggle}
             title='Success' 
-            info='Congratulations, a new employee has been created! '
+            info='Congratulations, a new employee has been created!'
             img={Confirmation}
             alt='success'
         />
       };
     
-
-    const department = [
-        'Sales',
-        'Marketing',
-        'Engineering',
-        'Human Ressources',
-        'Legal',
-    ];
-
-
     return (
         <Fragment>
             <Form submit={submit} initialValues={initialValues}>
@@ -64,10 +54,35 @@ export default function CreateEmployee() {
                     placeholder='Last Name'
                     type='text'
                     name='lastName'
-                />      
-                <label>Date of Birth</label>
+                />
+                <div className='container-forminput'>
+                    <div>
+                        <label>Date of Birth</label>
+                    </div>
+                    <div>
+                        <FormInput 
+                            placeholder='test'
+                            type='date' 
+                            name='test'
+                        /> 
+                    </div>
+                </div> 
+                <div className='container-forminput'>
+                    <div>
+                        <label>Date Start</label>
+                    </div>
+                    <div>
+                        <FormInput 
+                            placeholder='test'
+                            type='date' 
+                            name='test'
+                        /> 
+                    </div>
+                </div> 
+                {/* <label>Date of Birth</label>
                 <DatePicker/>
-                <DatePicker/>
+                <label>Date Start</label>
+                <DatePicker/> */}
                 <FormInput 
                     placeholder='Street'
                     type='text'
@@ -81,7 +96,6 @@ export default function CreateEmployee() {
                 <Select 
                     options={state} 
                     name='state'
-                    id='state'
                 />
                 <FormInput 
                     placeholder='Zip Code'
@@ -91,7 +105,6 @@ export default function CreateEmployee() {
                 <Select 
                     options={department} 
                     name='department'
-                    id='department'
                 />
             </Form>
 
