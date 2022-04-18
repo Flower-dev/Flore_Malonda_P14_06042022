@@ -1,11 +1,18 @@
+import { useState, useEffect } from 'react';
 // components
-import { Typography } from '@mui/material';
+
 import TableSortBox from '../components/Table';
 // custom
 import '../custom/pages/employeeList.scss';
 
 // -----------------------------------------------
 export default function EmployeeList() {
+    const [employeesInfos, setEmployeesInfos] = useState([]);
+
+    useEffect( () => {
+		let data = JSON.parse(localStorage.getItem('infosEmployee'));
+		setEmployeesInfos(data);
+	}, []);
 
     const tableHead  = [
         { label: 'First Name', id: 'firstName' },
@@ -18,21 +25,19 @@ export default function EmployeeList() {
         { label: 'State', id: 'state' },
         { label: 'Zip Code', id: 'zipCode' },
     ]
-
     const tableBody = () => {
-        <Typography>no data</Typography>
+        <p>no data</p>
     }
-
-
     return (
         <div className='table-container'>
-            <TableSortBox 
-                title='Current Employee'
-                tableHead={tableHead}
-                tableBody={tableBody()}
-                valueLabelBody={false}
-                defaultSort={{order: 'asc', orderBy: 'firstName'}}
-            />
+            {employeesInfos?.length >= 1 ? 
+                <TableSortBox 
+                    title='Current Employee'
+                    tableHead={tableHead}
+                    tableBody={tableBody()}
+                    valueLabelBody={false}
+                />
+            : 'Please create an employee to see their informations'}
         </div>
     )
 }
