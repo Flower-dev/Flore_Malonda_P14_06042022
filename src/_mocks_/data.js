@@ -1,4 +1,4 @@
-const department = [
+const departmentList = [
     {
         name: 'Sales',
         id: '1',
@@ -18,7 +18,7 @@ const department = [
     }
 ];
 
-const state = [ 
+const stateList = [ 
     {
         name: 'Alabama',
         abbreviation: 'AL',
@@ -257,4 +257,4 @@ const state = [
     }
 ];
 
-export {state, department};
+export {stateList, departmentList};

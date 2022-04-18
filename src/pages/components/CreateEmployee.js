@@ -1,15 +1,14 @@
 // react
-import { Fragment } from 'react';
+import { Fragment, useState } from 'react';
 // hooks
 import useModal from '../../hooks/useModal';
 // mocks data
-import {state, department} from '../../_mocks_/data';
+import {stateList, departmentList} from '../../_mocks_/data';
 // components
 // import DatePicker from '../../components/DatePicker';
 import Select from '../../components/Select';
 import Modal from '../../components/Modal';
 import FormInput from '../../components/FormInput';
-import Form from '../../components/Form';
 // assets
 import Confirmation from '../../assets/img/confirmation.png';
 // custom 
@@ -19,43 +18,54 @@ import '../../custom/components/createEmployee.scss';
 export default function CreateEmployee() {
     const { isShowing, toggle } = useModal();
 
-    const initialValues = {
-        firstName: '',
-        lastName: '',
-        startDate: '',
-        department: '',
-        dateOfBirth: '',
-        street: '',
-        city: '',
-        state: '',
-        zipCode: '',
-    };
+    const [ firstName, setFirstName ] = useState('');
+    const [ lastName, setLastName ] = useState('');
+    const [ startDate, setStartDate ] = useState('');
+    const [ department, setDepartment ] = useState('');
+    const [ dateOfBirth, setDateOfBirth ] = useState('');
+    const [ street, setStreet ] = useState('');
+    const [ city, setCity ] = useState('');
+    const [ state, setState ] = useState('');
+    const [ zipCode, setZipCode ] = useState('');
 
-    const submit = () => {
-        <Modal 
-            isShowing={isShowing} 
-            hide={toggle}
-            title='Success' 
-            info='Congratulations, a new employee has been created!'
-            img={Confirmation}
-            alt='success'
-        />
-      };
-    
+    let arrInfos = JSON.parse(localStorage.getItem('infosEmployee')) || [];
+  
+    const infosEmployee = {
+		firstName, 
+		lastName, 
+		startDate,
+		department,
+		dateOfBirth, 
+		street, 
+		city, 
+		state,
+		zipCode, 
+	};
+
+    const handleSubmit = (e) => {
+		e.preventDefault();
+		arrInfos.push(infosEmployee);
+		const infosEmployeeStorage = JSON.stringify(arrInfos);
+		localStorage.setItem('infosEmployee', infosEmployeeStorage);
+        toggle()
+	};
+
     return (
         <Fragment>
-            <Form submit={submit} initialValues={initialValues}>
+            <form method='post'>
                 <FormInput 
                     placeholder='First Name' 
                     type='text'
-                    name='firstName'
-                    onChange={(value) => console.log(value)}
+                    name='firstName' 
+                    required
+                    onChange={(value) => setFirstName(value)}
                 />
                 <FormInput
                     placeholder='Last Name'
                     type='text'
                     name='lastName'
-                    onChange={(value) => console.log(value)}
+                    required
+                    onChange={(value) => setLastName(value)}
                 />
                 <div className='container-forminput'>
                     <div>
@@ -66,7 +76,8 @@ export default function CreateEmployee() {
                             placeholder='test'
                             type='date' 
                             name='test'
-                            onChange={(value) => console.log(value)}
+                            required
+                            onChange={(value) => setDateOfBirth(value)}
                         /> 
                     </div>
                 </div> 
@@ -79,49 +90,47 @@ export default function CreateEmployee() {
                             placeholder='test'
                             type='date' 
                             name='test'
-                            onChange={(value) => console.log(value)}
+                            required
+                            onChange={(value) => setStartDate(value)}
                         /> 
                     </div>
                 </div> 
-                {/* <label>Date of Birth</label>
-                <DatePicker/>
-                <label>Date Start</label>
-                <DatePicker/> */}
                 <FormInput 
                     placeholder='Street'
                     type='text'
                     name='street'
-                    onChange={(value) => console.log(value)}
+                    required
+                    onChange={(value) => setStreet(value)}
                 />
                 <FormInput 
                     placeholder='City'
                     type='text'
                     name='city'
-                    onChange={(value) => console.log(value)}
+                    required
+                    onChange={(value) => setCity(value)}
                 />
                 <Select 
-                    options={state} 
+                    options={stateList} 
                     name='state'
-                    onChange={(value) => console.log(value)}
+                    required
+                    onChange={(value) => setState(value)}
                 />
                 <FormInput 
                     placeholder='Zip Code'
                     type='number' 
                     name='zipCode'
-                    onChange={(value) => console.log(value)}
+                    required
+                    onChange={(value) => setZipCode(value)}
                 />
                 <Select 
-                    options={department} 
+                    options={departmentList} 
                     name='department'
-                    onChange={(value) => console.log(value)}
+                    required
+                    onChange={(value) => setDepartment(value)}
                 />
-            </Form>
-
-
-            <button type="button" onClick={toggle}>
-                Open Modal
-            </button> 
-
+                <button className='button-save' onClick={(e) => handleSubmit(e)}>Save</button>
+            </form>
+ 
             <Modal 
                 isShowing={isShowing} 
                 hide={toggle}
