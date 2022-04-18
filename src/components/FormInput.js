@@ -1,11 +1,9 @@
-import { useContext } from 'react';
-import { FormContext } from './Form';
+import { useState } from 'react';
 import '../custom/components/input.scss';
 
-export default function FormInput({ type, name, placeholder }) {
+export default function FormInput({ type, name, placeholder, onChange }) {
 
-    const formContext = useContext(FormContext);
-    const { form, handleFormChange } = formContext;
+    const [initialValue, setInitialValue] = useState('');
 
     return  (
         <input 
@@ -13,8 +11,11 @@ export default function FormInput({ type, name, placeholder }) {
             type={type}
             name={name}
             placeholder={placeholder} 
-            value={form[name]}   
-            onChange={handleFormChange} 
+            value={initialValue}   
+            onChange={(e) => {
+                setInitialValue(e.target.value)
+                onChange(e.target.value)
+            }} 
         />
     )
 }

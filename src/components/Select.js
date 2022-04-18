@@ -8,41 +8,18 @@ export default function Select({ options, id, initialInputValue, onChange, name 
     const [inputValue, setInputValue] = useState(
         initialInputValue ? initialInputValue : ''
     );
-   
-    const handleClick = (
-        clickEvent,
-        optionValue,
-        updateInputWith,
-        setPageSize
-    ) => {
-        clickEvent.stopPropagation();
-    
-        const DropdownMenu = document.querySelector('.DropdownMenu');
-    
-        if (DropdownMenu.hasAttribute('open')) {
-          	DropdownMenu.removeAttribute('open');
-        } else {
-         	 DropdownMenu.setAttribute('open', '');
-        }
-    
-        if (optionValue) {
-          	updateInputWith(optionValue);
-        }
-        if (setPageSize) {
-          	setPageSize(optionValue);
-        }
-    };
+	const [open, setOpen] = useState(false);
 
     return (
-		<div className='DropdownMenu'>
+		<div className='DropdownMenu' style={{height : open ? 'auto' : '40px'}}>
 			<button
 				type='button'
 				className='DropdownMenu__button'
-				onClick={handleClick}
+				onClick={() => setOpen(!open)}
 			>
 				{inputValue !== '' ? inputValue : `Click to select a ${name}`}
 			</button> 
-			<ul className='DropdownMenu__options'>
+			<ul className='DropdownMenu__options' >
 				{options.map((option) => {
 					const optionValue =
 					typeof option === 'object' ? option.name : option;
@@ -50,7 +27,11 @@ export default function Select({ options, id, initialInputValue, onChange, name 
 						<li
 							className='DropdownMenu__option'
 							key={optionValue}
-							onClick={(e) => handleClick(e, optionValue, setInputValue, onChange)}
+							onClick={(e) => {
+								onChange(optionValue)
+								setInputValue(optionValue)
+								setOpen(false)
+							}}
 						>
 							{optionValue}
 						</li>
@@ -58,36 +39,6 @@ export default function Select({ options, id, initialInputValue, onChange, name 
 				})}
 			</ul>
 		</div>
-         
-	// 	<>
-	// 	<div className='DropdownMenu'>
-	// 		<button
-	// 			type='button'
-	// 			className='DropdownMenu__button'
-	// 			onClick={handleClick}
-	// 		>
-	// 			{inputValue !== '' ? inputValue : `Click to select a ${name}`}
-	// 		</button> 
-	// 		<ul className='DropdownMenu__options'>
-	// 			{options.map((option) => {
-	// 				const optionValue =
-	// 				typeof option === 'object' ? option.name : option;
-	// 				return (
-	// 					<li
-	// 						className='DropdownMenu__option'
-	// 						key={optionValue}
-	// 						onClick={(e) =>
-	// 						handleClick(e, optionValue, setInputValue, onChange)
-	// 						}
-	// 					>
-	// 						{optionValue}
-	// 					</li>
-	// 				);
-	// 			})}
-	// 		</ul>
-	// 	</div>
-	// 	  {/* <input type='hidden' id={id} value={inputValue} data-testid={id} name={name} /> */}
-	// </>
     );
 }
 

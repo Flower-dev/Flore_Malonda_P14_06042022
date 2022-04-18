@@ -49,11 +49,13 @@ export default function CreateEmployee() {
                     placeholder='First Name' 
                     type='text'
                     name='firstName'
+                    onChange={(value) => console.log(value)}
                 />
                 <FormInput
                     placeholder='Last Name'
                     type='text'
                     name='lastName'
+                    onChange={(value) => console.log(value)}
                 />
                 <div className='container-forminput'>
                     <div>
@@ -64,6 +66,7 @@ export default function CreateEmployee() {
                             placeholder='test'
                             type='date' 
                             name='test'
+                            onChange={(value) => console.log(value)}
                         /> 
                     </div>
                 </div> 
@@ -76,6 +79,7 @@ export default function CreateEmployee() {
                             placeholder='test'
                             type='date' 
                             name='test'
+                            onChange={(value) => console.log(value)}
                         /> 
                     </div>
                 </div> 
@@ -87,24 +91,29 @@ export default function CreateEmployee() {
                     placeholder='Street'
                     type='text'
                     name='street'
+                    onChange={(value) => console.log(value)}
                 />
                 <FormInput 
                     placeholder='City'
                     type='text'
                     name='city'
+                    onChange={(value) => console.log(value)}
                 />
                 <Select 
                     options={state} 
                     name='state'
+                    onChange={(value) => console.log(value)}
                 />
                 <FormInput 
                     placeholder='Zip Code'
                     type='number' 
                     name='zipCode'
+                    onChange={(value) => console.log(value)}
                 />
                 <Select 
                     options={department} 
                     name='department'
+                    onChange={(value) => console.log(value)}
                 />
             </Form>
 
