@@ -15,26 +15,24 @@ export default function EmployeeList() {
 	}, []);
 
     const tableHead  = [
-        { label: 'First Name', id: 'firstName' },
-        { label: 'Last Name', id: 'lastName' },
-        { label: 'Start Date', id: 'startDate' },
-        { label: 'Department', id: 'department' },
-        { label: 'Date of Birth', id: 'dateOfBirth' },
-        { label: 'Street', id: 'street' },
-        { label: 'City', id: 'city' },
-        { label: 'State', id: 'state' },
-        { label: 'Zip Code', id: 'zipCode' },
+        { header: "City", field: "city" },
+        { header: "Date of Birth", field: "birthDate" },
+        { header: "Department", field: "deparment" },
+        { header: "First Name", field: "firstName" },
+        { header: "Last Name", field: "lastName" },
+        { header: "Start Date", field: "startDay" },
+        { header: "State", field: "state" },
+        { header: "Street", field: "Street" },
+        { header: "Zip Code", field: "zipCode" },
     ]
-    const tableBody = () => {
-        <p>no data</p>
-    }
+ 
     return (
         <div className='table-container'>
             {employeesInfos?.length >= 1 ? 
                 <TableSortBox 
                     title='Current Employee'
                     tableHead={tableHead}
-                    tableBody={tableBody()}
+                    data={employeesInfos}
                     valueLabelBody={false}
                 />
             : 'Please create an employee to see their informations'}
