@@ -33,7 +33,6 @@ export default function EmployeeList() {
                     title='Current Employee'
                     tableHead={tableHead}
                     data={employeesInfos}
-                    valueLabelBody={false}
                 />
             : 'Please create an employee to see their informations'}
         </div>
