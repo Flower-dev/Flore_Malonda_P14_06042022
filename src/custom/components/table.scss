@@ -1,0 +1,191 @@
+.search-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    margin: 0.5em 0;
+}
+  
+.search-label {
+    color: #000;
+    margin: 0.5em 0;
+    font-size: 0.95em;
+    font-weight: 500;
+    padding: 0.6em;
+}
+  
+.search-input {
+    font-family: inherit;
+    font-size: 0.95em;
+    font-weight: 500;
+    padding: 0.6em;
+    line-height: 1.4;
+    border: 1px solid #e5e5e5;
+    border-radius: 3px;
+    transition: all 0.2s ease-in-out;
+}
+ 
+table {
+    margin: 0 auto;
+    table-layout: fixed;
+    width: 100%;
+    border-collapse: collapse;
+    border-bottom: solid 1px #e5e5e5;
+    border-top: solid 1px #e5e5e5;
+}
+  
+thead,
+th {
+    text-align: start;
+}
+  
+th span {
+    transition: color 0.1s ease-in;
+    pointer-events: none;
+}
+  
+th:hover span {
+    color: red;
+}
+  
+th span:hover {
+    color: red;
+}
+  
+thead th:nth-child(1) {
+    width: 25%;
+}
+  
+thead th:nth-child(2) {
+    width: 30%;
+}
+  
+thead th:nth-child(3) {
+    width: 35%;
+}
+  
+thead th:nth-child(4) {
+    width: 30%;
+}
+
+  thead th:nth-child(5) {
+    width: 30%;
+}
+
+thead th:nth-child(6) {
+    width: 25%;
+}
+
+thead th:nth-child(7) {
+    width: 30%;
+}
+
+thead th:nth-child(8) {
+    width: 35%;
+}
+
+thead th:nth-child(9) {
+    width: 20%;
+}
+  
+th,
+td {
+    padding: 20px;
+}
+
+td {
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+}
+  
+.row-data {
+    transition: background-color 0.1s ease-in;
+}
+  
+  .row-data:nth-of-type(odd) {
+    background-color: #f7f7f7;
+  }
+  
+.row-data:hover {
+    background-color: rgb(236, 241, 252);
+}
+  
+//   /* 
+//   Max width before this PARTICULAR table gets nasty
+//   This query will take effect for any screen smaller than 760px
+//   and also iPads specifically.
+//   */
+// @media only screen and (max-width: 760px),
+//     (min-device-width: 760px) and (max-device-width: 1023px) {
+//     /* Force table to not be like tables anymore */
+//     table,
+//     thead,
+//     tbody,
+//     th,
+//     td,
+//     tr {
+//       display: block;
+//     }
+  
+//     /* Hide table headers (but not display: none;, for accessibility) */
+//     thead tr {
+//       position: absolute;
+//       top: -9999px;
+//       left: -9999px;
+//     }
+  
+//     tr {
+//       border: 1px solid #ccc;
+//     }
+  
+//     td {
+//       /* Behave  like a "row" */
+//       border: none;
+//       border-bottom: 1px solid #eee;
+//       position: relative;
+//       padding-left: 50%;
+//     }
+  
+//     td:before {
+//       /* Now like a table header */
+//       position: absolute;
+//       /* Top/left values mimic padding */
+//       top: 6px;
+//       left: 6px;
+//       width: 45%;
+//       padding-right: 10px;
+//       white-space: nowrap;
+//       font-weight: bold;
+//     }
+  
+//     /*
+//       Label the data
+//       */
+//     td:nth-of-type(1):before {
+//       content: "City";
+//     }
+//     td:nth-of-type(2):before {
+//       content: "Date of Birth";
+//     }
+//     td:nth-of-type(3):before {
+//       content: "Department";
+//     }
+//     td:nth-of-type(4):before {
+//       content: "First Name";
+//     }
+//     td:nth-of-type(5):before {
+//       content: "Last Name";
+//     }
+//     td:nth-of-type(6):before {
+//       content: "Start Date";
+//     }
+//     td:nth-of-type(7):before {
+//       content: "State";
+//     }
+//     td:nth-of-type(8):before {
+//       content: "Street";
+//     }
+//     td:nth-of-type(9):before {
+//       content: "Zip Code";
+//     }
+// }

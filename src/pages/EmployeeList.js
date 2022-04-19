@@ -15,15 +15,15 @@ export default function EmployeeList() {
 	}, []);
 
     const tableHead  = [
-        { header: "City", field: "city" },
-        { header: "Date of Birth", field: "birthDate" },
-        { header: "Department", field: "deparment" },
         { header: "First Name", field: "firstName" },
         { header: "Last Name", field: "lastName" },
+        { header: "Date of Birth", field: "birthDate" },
         { header: "Start Date", field: "startDay" },
         { header: "State", field: "state" },
+        { header: "City", field: "city" },
         { header: "Street", field: "Street" },
         { header: "Zip Code", field: "zipCode" },
+        { header: "Department", field: "deparment" },
     ]
  
     return (
