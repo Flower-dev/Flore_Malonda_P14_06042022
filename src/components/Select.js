@@ -3,7 +3,7 @@ import { useState } from 'react';
 // custom
 import '../custom/components/select.scss';
 
-export default function Select({ options, id, initialInputValue, onChange, name }) {
+export default function Select({ options, initialInputValue, onChange, name }) {
 
     const [inputValue, setInputValue] = useState(
         initialInputValue ? initialInputValue : ''

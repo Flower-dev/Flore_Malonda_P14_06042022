@@ -1,5 +1,5 @@
 // import ReactDOM from 'react-dom';
-// import './MyDatePicker.css';
+
 
 // let oneDay = 60 * 60 * 24 * 1000;
 // let todayTimestamp = Date.now() - (Date.now() % oneDay) + (new Date().getTimezoneOffset() * 1000 * 60);
@@ -262,3 +262,24 @@
     
 
 // }
+import { useState } from 'react'; 
+// custom
+import '../custom/components/datePicker.scss'
+// -------------------------------------
+
+export default function DatePicker () {
+    const [open, setOpen] = useState(false);
+
+    return (
+        <div className='DatePicker-container' style={{height : open ? 'auto' : '40px'}}>
+			<button
+				type='button'
+				className='DatePicker-button'
+				onClick={() => setOpen(!open)}
+			>
+				Select a new date
+			</button> 
+            <div className='DatePicker-dateList'>test tableau de date</div>
+		</div>
+    )
+}

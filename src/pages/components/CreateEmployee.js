@@ -5,7 +5,7 @@ import useModal from '../../hooks/useModal';
 // mocks data
 import {stateList, departmentList} from '../../_mocks_/data';
 // components
-// import DatePicker from '../../components/DatePicker';
+import DatePicker from '../../components/DatePicker';
 import Select from '../../components/Select';
 import Modal from '../../components/Modal';
 import FormInput from '../../components/FormInput';
@@ -67,6 +67,7 @@ export default function CreateEmployee() {
                     required
                     onChange={(value) => setLastName(value)}
                 />
+                <DatePicker />
                 <div className='container-forminput'>
                     <div>
                         <label>Date of Birth</label>
@@ -139,7 +140,6 @@ export default function CreateEmployee() {
                 img={Confirmation}
                 alt='success'
             />
-
             
         </Fragment>
     )
