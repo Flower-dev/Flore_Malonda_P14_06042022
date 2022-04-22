@@ -67,33 +67,20 @@ export default function CreateEmployee() {
                     required
                     onChange={(value) => setLastName(value)}
                 />
-                <DatePicker />
                 <div className='container-forminput'>
                     <div>
-                        <label>Date of Birth</label>
+                        <label className='labelForm'>Date of Birth</label>
                     </div>
                     <div>
-                        <FormInput 
-                            placeholder='test'
-                            type='date' 
-                            name='test'
-                            required
-                            onChange={(value) => setDateOfBirth(value)}
-                        /> 
+                        <DatePicker />
                     </div>
                 </div> 
                 <div className='container-forminput'>
                     <div>
-                        <label>Date Start</label>
+                        <label className='labelForm'>Date Start</label>
                     </div>
                     <div>
-                        <FormInput 
-                            placeholder='test'
-                            type='date' 
-                            name='test'
-                            required
-                            onChange={(value) => setStartDate(value)}
-                        /> 
+                        <DatePicker />
                     </div>
                 </div> 
                 <FormInput 
