@@ -9,6 +9,7 @@ import '../custom/components/table.scss';
 export default function TableSortBox({ tableHead, onChange, data }) {
 	const columnHeaders = [];
   	const rowFields = [];
+	console.log(data)
 
 	// push create column headers and row fields based on tableHead object
 	for (const { header, field } of tableHead) {
@@ -40,7 +41,7 @@ export default function TableSortBox({ tableHead, onChange, data }) {
 						</tr>
 					</thead>
 					<tbody>
-						{data.map((rows, i) => {
+						{data.map((rows) => {
 							const {
 								firstName,
 								lastName,
@@ -53,7 +54,7 @@ export default function TableSortBox({ tableHead, onChange, data }) {
 								department,
 							} = rows;
 							return (
-								<tr className='row-data' key={rows.i}>
+								<tr className='row-data' key={rows.firstName}>
 									<td>{firstName}</td>
 									<td>{lastName}</td>
 									<td>{birthOfDate}</td>
