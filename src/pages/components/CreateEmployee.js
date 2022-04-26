@@ -69,18 +69,18 @@ export default function CreateEmployee() {
                 />
                 <div className='container-forminput'>
                     <div>
-                        <label className='labelForm'>Date of Birth</label>
+                        <DatePicker />
                     </div>
                     <div>
-                        <DatePicker />
+                        <label className='labelForm'>Date of Birth</label>
                     </div>
                 </div> 
                 <div className='container-forminput'>
                     <div>
-                        <label className='labelForm'>Date Start</label>
+                        <DatePicker />
                     </div>
                     <div>
-                        <DatePicker />
+                        <label className='labelForm'>Date Start</label>
                     </div>
                 </div> 
                 <FormInput 
