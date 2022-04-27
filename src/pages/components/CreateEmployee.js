@@ -69,7 +69,9 @@ export default function CreateEmployee() {
                 />
                 <div className='container-forminput'>
                     <div>
-                        <DatePicker />
+                    <DatePicker 
+                            onChange={(value) => setDateOfBirth(value)}
+                        />
                     </div>
                     <div>
                         <label className='labelForm'>Date of Birth</label>
@@ -77,7 +79,9 @@ export default function CreateEmployee() {
                 </div> 
                 <div className='container-forminput'>
                     <div>
-                        <DatePicker />
+                        <DatePicker 
+                            onChange={(value) => setStartDate(value)}
+                        />
                     </div>
                     <div>
                         <label className='labelForm'>Date Start</label>

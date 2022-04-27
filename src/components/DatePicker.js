@@ -1,17 +1,17 @@
-import React, {useState } from 'react';
+import React, {useState, useRef, useEffect } from 'react';
 import '../custom/components/datePicker.scss';
 
 
-export default function DatePicker ({onChange, value}) {
+export default function DatePicker ({onChange}) {
     let oneDay = 60 * 60 * 24 * 1000;
     let todayTimestamp = Date.now() - (Date.now() % oneDay) + (new Date().getTimezoneOffset() * 1000 * 60);
-    let inputRef = React.createRef();
+    let inputRef = useRef();
     let date = new Date();
 
     const [ open, setOpen ] = useState(false);
     const [ selectedDay, setSelectedDay ] = useState(todayTimestamp);
-    const [ monthDetails, setMonthDetails ] = useState([]);
-    // const [ monthDetails, setMonthDetails ] = useState(getMonthDetails(year, month));
+    const [ monthDetails, setMonthDetails ] = useState();
+    const [ value, setValue ] = useState('');
     const [month, setNewMonth] = useState(date.getMonth());
     const [year, setNewYear] = useState(date.getFullYear());
     /**
@@ -69,6 +69,32 @@ export default function DatePicker ({onChange, value}) {
         }
     }
 
+    // useEffect(() => {
+    //     const getMonthDetails = (year, month) => {
+    //         let firstDay = (new Date(year, month)).getDay();
+    //         let numberOfDays = getNumberOfDays(year, month);
+    //         let monthArray = [];
+    //         let rows = 6;
+    //         let currentDay = null;
+    //         let index = 0; 
+    //         let cols = 7;
+    //         for(let row=0; row<rows; row++) {
+    //             for(let col=0; col<cols; col++) { 
+    //                 currentDay = getDayDetails({
+    //                     index,
+    //                     numberOfDays,
+    //                     firstDay,
+    //                     year,
+    //                     month
+    //                 });
+    //                 monthArray.push(currentDay);
+    //                 index++;
+    //             }
+    //         }
+    //         return monthArray;
+    //     };
+    // }, [getMonthDetails()])
+    
     const getMonthDetails = (year, month) => {
         let firstDay = (new Date(year, month)).getDay();
         let numberOfDays = getNumberOfDays(year, month);
@@ -77,7 +103,6 @@ export default function DatePicker ({onChange, value}) {
         let currentDay = null;
         let index = 0; 
         let cols = 7;
-
         for(let row=0; row<rows; row++) {
             for(let col=0; col<cols; col++) { 
                 currentDay = getDayDetails({
@@ -91,7 +116,7 @@ export default function DatePicker ({onChange, value}) {
                 index++;
             }
         }
-        return monthArray;
+        return setMonthDetails(monthArray);
     };
 
     const isCurrentDay = (day) => {
@@ -134,14 +159,14 @@ export default function DatePicker ({onChange, value}) {
 
     const updateDateFromInput = () => {
         console.log('test')
-        // let dateValue = inputRef.current.value;
-        // let dateData = getDateFromDateString(dateValue);
-        // if(dateData !== null) { 
-        //     setDate(dateData);
-        //     setNewYear(dateData.year);
-        //     setNewMonth(dateData.month-1)
-        //     getMonthDetails(dateData.year, dateData.month-1)
-        // }
+        let dateValue = value;
+        let dateData = getDateFromDateString(dateValue);
+        if(dateData !== null) { 
+            setDate(dateData);
+            setNewYear(dateData.year);
+            setNewMonth(dateData.month-1)
+            setMonthDetails(() => getMonthDetails(dateData.year, dateData.month-1))
+        }
     };
 
     const setDateToInput = (timestamp) => {
@@ -150,7 +175,7 @@ export default function DatePicker ({onChange, value}) {
     }; 
 
     const onDateClick = (day) => {
-        setMonthDetails(day.timestamp)
+        getMonthDetails(day.timestamp)
         setDateToInput(day.timestamp)
         if(onChange) {
             onChange(day.timestamp);
@@ -162,7 +187,7 @@ export default function DatePicker ({onChange, value}) {
         let monthState =  month;
         setNewMonth(monthState)
         setNewYear(yearState)
-        getMonthDetails(yearState, monthState)
+        setMonthDetails(() => getMonthDetails(monthState, yearState))
     };
 
     const setMonth = (offset) => {
@@ -177,7 +202,7 @@ export default function DatePicker ({onChange, value}) {
         }
         setNewMonth(monthState)
         setNewYear(yearState)
-        getMonthDetails(yearState, monthState)
+        setMonthDetails(() => getMonthDetails(monthState, yearState))
     }
 
     /**
@@ -185,7 +210,8 @@ export default function DatePicker ({onChange, value}) {
      */
 
     const renderCalendar = () => {
-        let days = monthDetails.map((day, index)=> {
+        console.log(monthDetails)
+        let days = monthDetails?.map((day, index)=> {
             return (
                 <div className={'c-day-container ' + (day.month !== 0 ? ' disabled' : '') + 
                     (isCurrentDay(day) ? ' highlight' : '') + (isSelectedDay(day) ? ' highlight-green' : '')} key={index}>
@@ -214,7 +240,7 @@ export default function DatePicker ({onChange, value}) {
     return (
         <div className='datePicker-container'>
             <div className='mdp-input'  onClick={()=> setOpen(!open)}>
-                <input type='date'  onChange={updateDateFromInput()} ref={inputRef}/>
+                <input type='date'  onChange={updateDateFromInput()} />
             </div>
             {open ? (
                 <div className='mdp-container'>
@@ -244,7 +270,7 @@ export default function DatePicker ({onChange, value}) {
                             </div>
                         </div>
                     </div>
-                    <div className='mdpc-body'>
+                    <div className='mdpc-body' onClick={()=> setOpen(!open)}>
                         {renderCalendar()}
                     </div>
                 </div>
