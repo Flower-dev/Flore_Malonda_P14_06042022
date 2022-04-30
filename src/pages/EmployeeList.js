@@ -14,42 +14,42 @@ export default function EmployeeList() {
 	}, []);
          
     const tableHead  = [
-        { label: "First Name", id: "firstName" },
-        { label: "Last Name", id: "lastName" },
-        { label: "Date of Birth", id: "birthDate" },
-        { label: "Start Date", id: "startDay" },
-        { label: "State", id: "state" },
-        { label: "City", id: "city" },
-        { label: "Street", id: "street" },
-        { label: "Zip Code", id: "zipCode" },
-        { label: "Department", id: "department" },
+        { label: 'First Name', id: 'firstName' },
+        { label: 'Last Name', id: 'lastName' },
+        { label: 'Date of Birth', id: 'dateOfBirth' },
+        { label: 'Start Date', id: 'startDate' },
+        { label: 'State', id: 'state' },
+        { label: 'City', id: 'city' },
+        { label: 'Street', id: 'street' },
+        { label: 'Zip Code', id: 'zipCode' },
+        { label: 'Department', id: 'department' },
     ]
 
     const tableBody = () =>
-		employeesInfos.map((employee) => {
+		employeesInfos.map((el) => {
 			const values = [];
 			const labels = [];
 			values.push(
-                employee.firstName, 
-                employee.lastName, 
-                employee.birthDate, 
-                employee.startDay,
-                employee.state,
-                employee.city,
-                employee.street,
-                employee.zipCode,
-                employee.department
+                el.firstName, 
+                el.lastName, 
+                el.dateOfBirth, 
+                el.startDate,
+                el.state,
+                el.city,
+                el.street,
+                el.zipCode,
+                el.department
             );
 			labels.push(
-				employee.firstName, 
-                employee.lastName, 
-                employee.birthDate, 
-                employee.startDay,
-                employee.state,
-                employee.city,
-                employee.street,
-                employee.zipCode,
-                employee.department
+				el.firstName, 
+                el.lastName, 
+                el.dateOfBirth, 
+                el.startDate,
+                el.state,
+                el.city,
+                el.street,
+                el.zipCode,
+                el.department
 			);
 			const dataValues = {};
 			const dataLabels = {};
@@ -69,6 +69,8 @@ export default function EmployeeList() {
                     title='Current Employee'
                     tableHead={tableHead}
                     tableBody={tableBody()}
+                    valueLabelBody={false}
+                    collapsible
                 />
             : 'Please create an employee to see their informations'}
         </div>
