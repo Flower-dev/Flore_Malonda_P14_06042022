@@ -66,11 +66,11 @@ export default function EmployeeList() {
         <div className='table-container'>
             {employeesInfos?.length >= 1 ? 
                 <TableSortBox 
-                    title='Current Employee'
+                    title='List'
                     tableHead={tableHead}
                     tableBody={tableBody()}
                     valueLabelBody={false}
-                    collapsible
+                    defaultSort={{ order: 'asc', orderBy: 'firstName' }}
                 />
             : 'Please create an employee to see their informations'}
         </div>
