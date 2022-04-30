@@ -1,6 +1,5 @@
 import { useState, useEffect } from 'react';
 // components
-
 import TableSortBox from '../components/Table';
 // custom
 import '../custom/pages/employeeList.scss';
@@ -8,44 +7,60 @@ import '../custom/pages/employeeList.scss';
 // -----------------------------------------------
 export default function EmployeeList() {
     const [employeesInfos, setEmployeesInfos] = useState([]);
-    const [currentRows, setCurrentRows] = useState([]); //default rows is set to blank array
-    const [currentPage, setCurrentPage] = useState(1); // default pagination default is 1
-    const [rowsPerPage, setRowsPerPage] = useState(10); //default records per page is 10
-
-    //last page number based on rows per page
-    const indexofLastRow = currentPage * rowsPerPage;
-    //first page number based on how many rows per page
-    const indexOfFirstRow = indexofLastRow - rowsPerPage;
 
     useEffect( () => {
 		let data = JSON.parse(localStorage.getItem('infosEmployee'));
 		setEmployeesInfos(data);
 	}, []);
-
-    useEffect(() => {
-        setCurrentRows(employeesInfos.slice(indexOfFirstRow, indexofLastRow));
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [currentPage, rowsPerPage]);
-    
-    const totalRows = Math.ceil(employeesInfos.length);
-    const paginate = (pageNumber) => setCurrentPage(pageNumber); 
-
-    const rowChange = (e) => {
-        setRowsPerPage(e.target.value);
-        setCurrentPage(1);
-      };
-
+         
     const tableHead  = [
-        { header: "First Name", field: "firstName" },
-        { header: "Last Name", field: "lastName" },
-        { header: "Date of Birth", field: "birthDate" },
-        { header: "Start Date", field: "startDay" },
-        { header: "State", field: "state" },
-        { header: "City", field: "city" },
-        { header: "Street", field: "Street" },
-        { header: "Zip Code", field: "zipCode" },
-        { header: "Department", field: "deparment" },
+        { label: "First Name", id: "firstName" },
+        { label: "Last Name", id: "lastName" },
+        { label: "Date of Birth", id: "birthDate" },
+        { label: "Start Date", id: "startDay" },
+        { label: "State", id: "state" },
+        { label: "City", id: "city" },
+        { label: "Street", id: "street" },
+        { label: "Zip Code", id: "zipCode" },
+        { label: "Department", id: "department" },
     ]
+
+    const tableBody = () =>
+		employeesInfos.map((employee) => {
+			const values = [];
+			const labels = [];
+			values.push(
+                employee.firstName, 
+                employee.lastName, 
+                employee.birthDate, 
+                employee.startDay,
+                employee.state,
+                employee.city,
+                employee.street,
+                employee.zipCode,
+                employee.department
+            );
+			labels.push(
+				employee.firstName, 
+                employee.lastName, 
+                employee.birthDate, 
+                employee.startDay,
+                employee.state,
+                employee.city,
+                employee.street,
+                employee.zipCode,
+                employee.department
+			);
+			const dataValues = {};
+			const dataLabels = {};
+			let i = 0;
+			tableHead.forEach((label) => {
+				dataValues[label.id] = values[i];
+				dataLabels[label.id] = labels[i];
+				i += 1;
+			});
+			return { value: dataValues, label: dataLabels };
+	});
  
     return (
         <div className='table-container'>
@@ -53,12 +68,7 @@ export default function EmployeeList() {
                 <TableSortBox 
                     title='Current Employee'
                     tableHead={tableHead}
-                    data={employeesInfos}
-                    totalRows={totalRows}
-                    rowsPerPage={rowsPerPage}
-                    currentPage={currentPage}
-                    paginate={paginate}
-                    onChange={rowChange}
+                    tableBody={tableBody()}
                 />
             : 'Please create an employee to see their informations'}
         </div>
