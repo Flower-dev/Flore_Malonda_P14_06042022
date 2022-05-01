@@ -28,7 +28,8 @@ import { visuallyHidden } from '@mui/utils';
 import { useTheme } from '@mui/material/styles';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
-
+// components
+import SearchNotFound from './SearchNotFound';
 
 // -------------------------------------------
 
@@ -154,7 +155,7 @@ function applySortFilter(array, comparator, query) {
 				typeof value === 'number'
 					? value.toString().indexOf(query) !== -1
 					: value !== null &&
-					  value !== undefined 
+					  value !== undefined
 			)
 		);
 	}
@@ -192,6 +193,7 @@ export default function TableSortBox({
 
 	const emptyRows = page > 0 ? Math.max(0, (1 + page) * rowsPerPage - tableBody.length) : 0;
 
+	const isSearchNotFound = filteredBody.length === 0;
 
 	const handleChangePage = (event, newPage) => {
 		setPage(newPage);
@@ -221,7 +223,7 @@ export default function TableSortBox({
 			fullWidth={isMobile}
 			value={filterSearch}
 			onChange={handleFilterBySearch}
-			placeholder='Search...'
+			placeholder='Rechercher...'
 			startAdornment={
 				<InputAdornment position='start'>
 					<Box component={Icon} icon={searchFill} sx={{ color: 'text.disabled' }} />
@@ -248,7 +250,7 @@ export default function TableSortBox({
 					</Grid>
 				</Grid>
 			)}
-			
+		
 			<TableContainer sx={{ mt: 3 }}>
 				<Table>
 					<TableHead>
@@ -299,12 +301,22 @@ export default function TableSortBox({
 							</TableRow>
 						)}
 					</TableBody>
+					{isSearchNotFound && (
+						<TableBody>
+							<TableRow>
+								<TableCell align='center' colSpan={6} sx={{ py: 3 }}>
+									<SearchNotFound searchQuery={filterSearch} />
+								</TableCell>
+							</TableRow>
+						</TableBody>
+					)}
 				</Table>
 			</TableContainer>
+			
 
 			<TablePagination
-				labelRowsPerPage='Rows per page:'
-				rowsPerPageOptions={[5, 10, 20, 50, { label: 'All', value: tableBody.length }]}
+				labelRowsPerPage='Lignes par page :'
+				rowsPerPageOptions={[5, 10, 20, 50, { label: 'toutes', value: tableBody.length }]}
 				component='div'
 				count={tableBody.length}
 				rowsPerPage={rowsPerPage}
