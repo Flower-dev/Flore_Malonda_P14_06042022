@@ -1,19 +1,23 @@
-import React, {useState, useRef } from 'react';
+import React, {useState, useEffect } from 'react';
 import '../custom/components/datePicker.scss';
 
 
 export default function DatePicker ({onChange}) {
     let oneDay = 60 * 60 * 24 * 1000;
     let todayTimestamp = Date.now() - (Date.now() % oneDay) + (new Date().getTimezoneOffset() * 1000 * 60);
-    let inputRef = useRef();
     let date = new Date();
-
+ 
     const [ open, setOpen ] = useState(false);
-    const [ selectedDay, setSelectedDay ] = useState(todayTimestamp);
+    const [ selectedDay, setSelectedDay ] = useState('');
     const [ monthDetails, setMonthDetails ] = useState([]);
-    const [ value, setValue ] = useState('');
     const [month, setNewMonth] = useState(date.getMonth());
     const [year, setNewYear] = useState(date.getFullYear());
+    
+    useEffect(() => {
+        getMonthDetails(5, 2022);
+        setSelectedDay(getDateStringFromTimestamp({date : date.getDate()}))
+    }, []);
+
     /**
      *  Core
      */
@@ -98,60 +102,22 @@ export default function DatePicker ({onChange}) {
     };
 
     const isSelectedDay = (day) => {
-        return day.timestamp === setSelectedDay()
+        return getDateStringFromTimestamp(day) === selectedDay;
     }; 
-
-    const getDateFromDateString = (dateValue) => {
-        let dateData = dateValue.split('-').map(d=>parseInt(d, 10));
-        if(dateData.length < 3) 
-            return null;
-
-        let year = dateData[0];
-        let month = dateData[1];
-        let date = dateData[2];
-        return {year, month, date};
-    };
 
     const getMonthStr = (month) => {
         return monthMap[Math.max(Math.min(11, month), 0)] || 'Month';
     };
 
-    const getDateStringFromTimestamp = (timestamp) => {
-        let dateObject = new Date(timestamp);
-        let month = dateObject.getMonth()+1;
+    const getDateStringFromTimestamp = (day) => {
+        const dateString = `${year}-${month+1}-${day.date}`
+        let dateObject = new Date(dateString);
         let date = dateObject.getDate();
-        return dateObject.getFullYear() + '-' + (month < 10 ? '0'+month : month) + '-' + (date < 10 ? '0'+date : date);
+        return dateObject.getFullYear() + '-' + ((month+1) < 10 ? '0'+(month+1) : (month+1)) + '-' + (date < 10 ? '0'+date : date);
     };
-
-    const setDate = (dateData) => {
-        let daySelected = new Date(dateData.year, dateData.month-1, dateData.date).getTime();
-        setSelectedDay(daySelected)
-        if(onChange) {
-            onChange(selectedDay)
-        }
-    };
-
-    const updateDateFromInput = () => {
-        console.log('test')
-        let dateValue = value;
-        let dateData = getDateFromDateString(dateValue);
-        if(dateData !== null) { 
-            setDate(dateData);
-            setNewYear(dateData.year);
-            setNewMonth(dateData.month-1)
-            setMonthDetails(dateData.year, dateData.month-1)
-            // setMonthDetails(() => getMonthDetails(dateData.year, dateData.month-1))
-        }
-    };
-
-    const setDateToInput = (timestamp) => {
-        let dateString = getDateStringFromTimestamp(timestamp);
-        inputRef.current.value = dateString;
-    }; 
 
     const onDateClick = (day) => {
-        getMonthDetails(day.timestamp)
-        setDateToInput(day.timestamp)
+        setSelectedDay(getDateStringFromTimestamp(day))
         if(onChange) {
             onChange(day.timestamp);
         }
@@ -162,8 +128,7 @@ export default function DatePicker ({onChange}) {
         let monthState =  month;
         setNewMonth(monthState)
         setNewYear(yearState)
-        setMonthDetails(monthState, yearState)
-        // setMonthDetails(() => getMonthDetails(monthState, yearState))
+        getMonthDetails(monthState, yearState)
     };
 
     const setMonth = (offset) => {
@@ -178,8 +143,7 @@ export default function DatePicker ({onChange}) {
         }
         setNewMonth(monthState)
         setNewYear(yearState)
-        setMonthDetails(monthState, yearState)
-        // setMonthDetails(() => getMonthDetails(monthState, yearState))
+        getMonthDetails(monthState, yearState)
     }
 
     /**
@@ -217,8 +181,7 @@ export default function DatePicker ({onChange}) {
     return (
         <div className='datePicker-container'>
             <div className='mdp-input'  onClick={()=> setOpen(!open)}>
-                {/* <input type='date'  onChange={updateDateFromInput()} /> */}
-                <input type='date'  />
+                <input type='text' defaultValue={selectedDay} />
             </div>
             {open ? (
                 <div className='mdp-container'>
