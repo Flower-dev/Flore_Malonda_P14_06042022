@@ -1,12 +1,13 @@
 import React, {useState, useEffect, createRef } from 'react';
 import '../custom/components/datePicker.scss';
 
-let oneDay = 60 * 60 * 24 * 1000;
-let todayTimestamp = Date.now() - (Date.now() % oneDay) + (new Date().getTimezoneOffset() * 1000 * 60);
-let date = new Date();
 
 export default function DatePicker ({onChange}) {
+    let oneDay = 60 * 60 * 24 * 1000;
+    let todayTimestamp = Date.now() - (Date.now() % oneDay) + (new Date().getTimezoneOffset() * 1000 * 60);
+    let date = new Date();
     const inputRef = createRef()
+
     const [ open, setOpen ] = useState(false);
     const [ selectedDay, setSelectedDay ] = useState('');
     const [ monthDetails, setMonthDetails ] = useState([]);
@@ -163,7 +164,7 @@ export default function DatePicker ({onChange}) {
         let yearState = year + offset;
         let monthState =  month;
         setNewYear(yearState)
-        getMonthDetails(yearState, monthState)
+        setMonthDetails(getMonthDetails(yearState, monthState))
     };
 
     const setMonth = (offset) => {
@@ -178,7 +179,7 @@ export default function DatePicker ({onChange}) {
         }
         setNewYear(yearState)
         setNewMonth(monthState)
-        getMonthDetails(monthState, yearState)
+        setMonthDetails(getMonthDetails(yearState, monthState))
     }
 
     /**
