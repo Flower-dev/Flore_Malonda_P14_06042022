@@ -315,8 +315,8 @@ export default function TableSortBox({
 			
 
 			<TablePagination
-				labelRowsPerPage='Lignes par page :'
-				rowsPerPageOptions={[5, 10, 20, 50, { label: 'toutes', value: tableBody.length }]}
+				labelRowsPerPage='Rows per pages:'
+				rowsPerPageOptions={[5, 10, 20, 50, { label: 'all', value: tableBody.length }]}
 				component='div'
 				count={tableBody.length}
 				rowsPerPage={rowsPerPage}

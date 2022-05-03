@@ -54,7 +54,7 @@ export default function CreateEmployee() {
         <Fragment>
             <form method='post'>
                 <div className='input-name-info'>
-                    <p className='subtitleForm'> - Personal informations - </p>
+                    <p className='subtitleForm'> - Personal information - </p>
                     <FormInput 
                         placeholder='First Name' 
                         type='text'
@@ -121,7 +121,7 @@ export default function CreateEmployee() {
                 </div>
 
                 <div className='input-pro-info'>
-                    <p className='subtitleForm'> - Professional informations - </p>
+                    <p className='subtitleForm'> - Professional information - </p>
                     <Select 
                         options={departmentList} 
                         name='department'
@@ -130,7 +130,7 @@ export default function CreateEmployee() {
                     />
                     <div className='container-forminput'>
                         <div>
-                            <label className='labelForm'>Date Start</label>
+                            <label className='labelForm'>Starting Date</label>
                         </div>
                         <div>
                             <DatePicker 

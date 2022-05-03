@@ -17,7 +17,7 @@ export default function EmployeeList() {
         { label: 'First Name', id: 'firstName' },
         { label: 'Last Name', id: 'lastName' },
         { label: 'Date of Birth', id: 'dateOfBirth' },
-        { label: 'Start Date', id: 'startDate' },
+        { label: 'Starting Date', id: 'startDate' },
         { label: 'State', id: 'state' },
         { label: 'City', id: 'city' },
         { label: 'Street', id: 'street' },
