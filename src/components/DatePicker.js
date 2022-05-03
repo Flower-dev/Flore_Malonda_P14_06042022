@@ -1,21 +1,21 @@
-import React, {useState, useEffect } from 'react';
+import React, {useState, useEffect, createRef } from 'react';
 import '../custom/components/datePicker.scss';
 
+let oneDay = 60 * 60 * 24 * 1000;
+let todayTimestamp = Date.now() - (Date.now() % oneDay) + (new Date().getTimezoneOffset() * 1000 * 60);
+let date = new Date();
 
 export default function DatePicker ({onChange}) {
-    let oneDay = 60 * 60 * 24 * 1000;
-    let todayTimestamp = Date.now() - (Date.now() % oneDay) + (new Date().getTimezoneOffset() * 1000 * 60);
-    let date = new Date();
- 
+    const inputRef = createRef()
     const [ open, setOpen ] = useState(false);
     const [ selectedDay, setSelectedDay ] = useState('');
     const [ monthDetails, setMonthDetails ] = useState([]);
-    const [month, setNewMonth] = useState(date.getMonth());
     const [year, setNewYear] = useState(date.getFullYear());
+    const [month, setNewMonth] = useState(date.getMonth());
     
     useEffect(() => {
-        getMonthDetails(5, 2022);
-        setSelectedDay(getDateStringFromTimestamp({date : date.getDate()}))
+        setMonthDetails(getMonthDetails(year, month));
+        setDateToInput(selectedDay);
     }, []);
 
     /**
@@ -94,7 +94,7 @@ export default function DatePicker ({onChange}) {
                 index++;
             }
         }
-        return setMonthDetails(monthArray);
+        return monthArray;
     };
 
     const isCurrentDay = (day) => {
@@ -102,22 +102,58 @@ export default function DatePicker ({onChange}) {
     };
 
     const isSelectedDay = (day) => {
-        return getDateStringFromTimestamp(day) === selectedDay;
+        return day.timestamp === selectedDay
     }; 
+
+    const getDateFromDateString = (dateValue) => {
+        let dateData = dateValue.split('-').map(d=>parseInt(d, 10));
+        if(dateData.length < 3) 
+            return null;
+        let year = dateData[0];
+        let month = dateData[1];
+        let date = dateData[2];
+        return {year, month, date};
+    }
 
     const getMonthStr = (month) => {
         return monthMap[Math.max(Math.min(11, month), 0)] || 'Month';
     };
 
-    const getDateStringFromTimestamp = (day) => {
-        const dateString = `${year}-${month+1}-${day.date}`
-        let dateObject = new Date(dateString);
+    const getDateStringFromTimestamp = (timestamp) => {
+        let dateObject = new Date(timestamp);
+        let month = dateObject.getMonth()+1;
         let date = dateObject.getDate();
-        return dateObject.getFullYear() + '-' + ((month+1) < 10 ? '0'+(month+1) : (month+1)) + '-' + (date < 10 ? '0'+date : date);
+        return dateObject.getFullYear() + '-' + (month < 10 ? '0'+month : month) + '-' + (date < 10 ? '0'+date : date);
     };
 
+    const setDate = (dateData) => {
+        let selectedDay = new Date(dateData.year, dateData.month-1, dateData.date).getTime();
+        setSelectedDay()
+        if(onChange) {
+            onChange(selectedDay);
+        }
+    }
+
+    const updateDateFromInput = () => {
+        let dateValue = inputRef.current.value;
+        let dateData = getDateFromDateString(dateValue);
+        if(dateData !== null) { 
+            setDate(dateData);
+            setNewYear(dateData.year);
+            setNewMonth(dateData.month-1); 
+            setMonthDetails(getMonthDetails(dateData.year, dateData.month-1))
+        }
+    };
+
+    const setDateToInput = (timestamp) => {
+        let dateString = getDateStringFromTimestamp(timestamp);
+        inputRef.current.value = dateString;
+    }
+
+
     const onDateClick = (day) => {
-        setSelectedDay(getDateStringFromTimestamp(day))
+        setSelectedDay(day.timestamp); 
+        setDateToInput(day.timestamp);
         if(onChange) {
             onChange(day.timestamp);
         }
@@ -126,9 +162,8 @@ export default function DatePicker ({onChange}) {
     const setYear = (offset) => {
         let yearState = year + offset;
         let monthState =  month;
-        setNewMonth(monthState)
         setNewYear(yearState)
-        getMonthDetails(monthState, yearState)
+        getMonthDetails(yearState, monthState)
     };
 
     const setMonth = (offset) => {
@@ -141,8 +176,8 @@ export default function DatePicker ({onChange}) {
             monthState = 0;
             yearState++;
         }
-        setNewMonth(monthState)
         setNewYear(yearState)
+        setNewMonth(monthState)
         getMonthDetails(monthState, yearState)
     }
 
@@ -151,11 +186,10 @@ export default function DatePicker ({onChange}) {
      */
 
     const renderCalendar = () => {
-        console.log(monthDetails)
         let days = monthDetails.map((day, index)=> {
             return (
                 <div className={'c-day-container ' + (day.month !== 0 ? ' disabled' : '') + 
-                    (isCurrentDay(day) ? ' highlight' : '') + (isSelectedDay(day) ? ' highlight-green' : '')} key={index}>
+                    (isCurrentDay(day) ? ' highlight' : '') + (isSelectedDay(day) ? ' highlight-blue' : '')} key={index}>
                     <div className='cdc-day'>
                         <span onClick={()=> onDateClick(day)}>
                             {day.date}
@@ -180,38 +214,42 @@ export default function DatePicker ({onChange}) {
 
     return (
         <div className='datePicker-container'>
-            <div className='mdp-input'  onClick={()=> setOpen(!open)}>
-                <input type='text' defaultValue={selectedDay} />
+            <div className='dp-input'  onClick={()=> setOpen(!open)}>
+                <input 
+                    type='date' 
+                    ref={inputRef}
+                    onChange={updateDateFromInput}
+                />
             </div>
             {open ? (
-                <div className='mdp-container'>
-                    <div className='mdpc-head'>
-                        <div className='mdpch-button'>
-                            <div className='mdpchb-inner' onClick={()=> setYear(-1)}>
-                                <span className='mdpchbi-left-arrows'></span>
+                <div className='dp-container'>
+                    <div className='dpc-head'>
+                        <div className='dpch-button'>
+                            <div className='dpchb-inner' onClick={()=> setYear(-1)}>
+                                <span className='dpchbi-left-arrows'></span>
                             </div>
                         </div>
-                        <div className='mdpch-button'>
-                            <div className='mdpchb-inner' onClick={()=> setMonth(-1)}>
-                                <span className='mdpchbi-left-arrow'></span>
+                        <div className='dpch-button'>
+                            <div className='dpchb-inner' onClick={()=> setMonth(-1)}>
+                                <span className='dpchbi-left-arrow'></span>
                             </div>
                         </div>
-                        <div className='mdpch-container'>
-                            <div className='mdpchc-year'>{year}</div>
-                            <div className='mdpchc-month'>{getMonthStr(month)}</div>
+                        <div className='dpch-container'>
+                            <div className='dpchc-year'>{year}</div>
+                            <div className='dpchc-month'>{getMonthStr(month)}</div>
                         </div>
-                        <div className='mdpch-button'>
-                            <div className='mdpchb-inner' onClick={()=> setMonth(1)}>
-                                <span className='mdpchbi-right-arrow'></span>
+                        <div className='dpch-button'>
+                            <div className='dpchb-inner' onClick={()=> setMonth(1)}>
+                                <span className='dpchbi-right-arrow'></span>
                             </div>
                         </div>
-                        <div className='mdpch-button'>
-                            <div className='mdpchb-inner' onClick={()=> setYear(1)}>
-                                <span className='mdpchbi-right-arrows'></span>
+                        <div className='dpch-button'>
+                            <div className='dpchb-inner' onClick={()=> setYear(1)}>
+                                <span className='dpchbi-right-arrows'></span>
                             </div>
                         </div>
                     </div>
-                    <div className='mdpc-body' onClick={()=> setOpen(!open)}>
+                    <div className='dpc-body' onClick={()=> setOpen(!open)}>
                         {renderCalendar()}
                     </div>
                 </div>
