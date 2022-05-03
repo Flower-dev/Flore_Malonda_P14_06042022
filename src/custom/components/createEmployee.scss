@@ -3,11 +3,35 @@
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
-    width: 91%;
+    padding-top: 2%;
+}
+
+.subtitleForm {
+    text-align: center;
+    color: #012326;
+    // text-transform: uppercase;
+    letter-spacing: 2px;
+}
+
+.input-name-info,
+.input-address-infos,
+.input-pro-info {
+    width: 100%;
+}
+
+.input-block {
+    width: 30%;
+}
+
+.input-block-city {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
 }
 
 .labelForm {
-    font-size: 11px;
+    font-size: 13px;
 }
 
 form {

@@ -53,73 +53,93 @@ export default function CreateEmployee() {
     return (
         <Fragment>
             <form method='post'>
-                <FormInput 
-                    placeholder='First Name' 
-                    type='text'
-                    name='firstName' 
-                    required
-                    onChange={(value) => setFirstName(value)}
-                />
-                <FormInput
-                    placeholder='Last Name'
-                    type='text'
-                    name='lastName'
-                    required
-                    onChange={(value) => setLastName(value)}
-                />
-                <div className='container-forminput'>
-                    <div>
-                    <DatePicker 
-                            onChange={(value) => setDateOfBirth(value)}
-                        />
+                <div className='input-name-info'>
+                    <p className='subtitleForm'> - Personal informations - </p>
+                    <FormInput 
+                        placeholder='First Name' 
+                        type='text'
+                        name='firstName' 
+                        required
+                        onChange={(value) => setFirstName(value)}
+                    />
+                    <FormInput
+                        placeholder='Last Name'
+                        type='text'
+                        name='lastName'
+                        required
+                        onChange={(value) => setLastName(value)}
+                    />
+                    <div className='container-forminput'>
+                        <div>
+                            <label className='labelForm'>Date of Birth</label>
+                        </div>
+                        <div>
+                            <DatePicker 
+                                onChange={(value) => setDateOfBirth(value)}
+                            />
+                        </div>
+                    </div> 
+                </div>
+
+                <div className='input-address-infos'>
+                    <p className='subtitleForm'> - Address - </p>
+                    <FormInput 
+                        placeholder='Street'
+                        type='text'
+                        name='street'
+                        required
+                        onChange={(value) => setStreet(value)}
+                    />
+                    <div className='input-block-city'>
+                        <div className='input-block'>
+                            <FormInput 
+                                placeholder='City'
+                                type='text'
+                                name='city'
+                                required
+                                onChange={(value) => setCity(value)}
+                            />
+                        </div>
+                        <div className='input-block'>
+                            <FormInput 
+                                placeholder='Zip Code'
+                                type='number' 
+                                name='zipCode'
+                                required
+                                onChange={(value) => setZipCode(value)}
+                            />
+                        </div>
+                        <div className='input-block'>
+                            <Select 
+                                options={stateList} 
+                                name='state'
+                                required
+                                onChange={(value) => setState(value)}
+                            />
+                        </div>
                     </div>
-                    <div>
-                        <label className='labelForm'>Date of Birth</label>
-                    </div>
-                </div> 
-                <div className='container-forminput'>
-                    <div>
-                        <DatePicker 
-                            onChange={(value) => setStartDate(value)}
-                        />
-                    </div>
-                    <div>
-                        <label className='labelForm'>Date Start</label>
-                    </div>
-                </div> 
-                <FormInput 
-                    placeholder='Street'
-                    type='text'
-                    name='street'
-                    required
-                    onChange={(value) => setStreet(value)}
-                />
-                <FormInput 
-                    placeholder='City'
-                    type='text'
-                    name='city'
-                    required
-                    onChange={(value) => setCity(value)}
-                />
-                <Select 
-                    options={stateList} 
-                    name='state'
-                    required
-                    onChange={(value) => setState(value)}
-                />
-                <FormInput 
-                    placeholder='Zip Code'
-                    type='number' 
-                    name='zipCode'
-                    required
-                    onChange={(value) => setZipCode(value)}
-                />
-                <Select 
-                    options={departmentList} 
-                    name='department'
-                    required
-                    onChange={(value) => setDepartment(value)}
-                />
+                </div>
+
+                <div className='input-pro-info'>
+                    <p className='subtitleForm'> - Professional informations - </p>
+                    <Select 
+                        options={departmentList} 
+                        name='department'
+                        required
+                        onChange={(value) => setDepartment(value)}
+                    />
+                    <div className='container-forminput'>
+                        <div>
+                            <label className='labelForm'>Date Start</label>
+                        </div>
+                        <div>
+                            <DatePicker 
+                                onChange={(value) => setStartDate(value)}
+                            />
+                        </div>
+                    </div> 
+                </div>
+
                 <button className='button-save' onClick={(e) => handleSubmit(e)}>Save</button>
             </form>
  
@@ -127,7 +147,7 @@ export default function CreateEmployee() {
                 isShowing={isShowing} 
                 hide={toggle}
                 title='Success' 
-                info='Congratulations, a new employee has been created! '
+                info='Congratulations, a new employee has been created!'
                 img={Confirmation}
                 alt='success'
             />

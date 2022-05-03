@@ -27,3 +27,6 @@ This repository contains all the source code to run the micro front for the appl
     npm install
 ```
 Your server should now be running at http://locahost:3000
+
+
+![screen n°1](img/img1.png)
