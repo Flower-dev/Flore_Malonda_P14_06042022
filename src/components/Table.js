@@ -9,9 +9,7 @@ import {
 	Box,
 	Card,
 	CardHeader,
-	Collapse,
 	Grid,
-	IconButton,
 	InputAdornment,
 	OutlinedInput,
 	Table,
@@ -26,8 +24,6 @@ import {
 } from '@mui/material';
 import { visuallyHidden } from '@mui/utils';
 import { useTheme } from '@mui/material/styles';
-import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
-import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
 // components
 import SearchNotFound from './SearchNotFound';
 
@@ -37,68 +33,23 @@ Row.propTypes = {
 	tableHead: PropTypes.array,
 	tableBody: PropTypes.array,
 	valueLabelBody: PropTypes.bool,
-	row: PropTypes.object,
-	collapsible: PropTypes.bool
+	row: PropTypes.object
 };
 
 // -------------------------------------------
 
-function Row({ tableHead, tableBody, valueLabelBody, row, collapsible }) {
-	const [open, setOpen] = useState(false);
+function Row({ tableHead, tableBody, valueLabelBody, row }) {
 
 	return (
-		<>
-			<TableRow hover tabIndex={-1}>
-				{collapsible && (
-					<TableCell>
-						<IconButton size='small' onClick={() => setOpen(!open)}>
-							{open ? <KeyboardArrowUpIcon /> : <KeyboardArrowDownIcon />}
-						</IconButton>
-					</TableCell>
-				)}
-
-				{tableHead.map((col, index) => (
-					<TableCell align={col.alignBody ? col.alignBody : 'left'} key={index}>
-						{valueLabelBody
-							? row[col.id]
-							: tableBody.find((element) => element.value === row).label[col.id]}
-					</TableCell>
-				))}
-			</TableRow>
-
-			{collapsible && (
-				<TableRow>
-					<TableCell style={{ paddingBottom: 0, paddingTop: 0 }} colSpan={6}>
-						<Collapse in={open} timeout='auto' unmountOnExit>
-							<Box sx={{ margin: 1 }}>
-								<Table size='small' aria-label='purchases'>
-									<TableHead>
-										<TableRow>
-											{row.tableHeadCollapsible.map((column) => (
-												<TableCell key={column.id} align={column.align}>
-													{column.label}
-												</TableCell>
-											))}
-										</TableRow>
-									</TableHead>
-									<TableBody>
-										{row.tableBodyCollapsible.map((collapsibleRow, index) => (
-											<TableRow key={index}>
-												{row.tableHeadCollapsible.map((column) => (
-													<TableCell key={column.id} align={column.align}>
-														{collapsibleRow[column.id]}
-													</TableCell>
-												))}
-											</TableRow>
-										))}
-									</TableBody>
-								</Table>
-							</Box>
-						</Collapse>
-					</TableCell>
-				</TableRow>
-			)}
-		</>
+		<TableRow hover tabIndex={-1}>
+			{tableHead.map((col, index) => (
+				<TableCell align={col.alignBody ? col.alignBody : 'left'} key={index}>
+					{valueLabelBody
+						? row[col.id]
+						: tableBody.find((element) => element.value === row).label[col.id]}
+				</TableCell>
+			))}
+		</TableRow>
 	);
 }
 
@@ -116,7 +67,6 @@ TableSortBox.propTypes = {
 	}),
 	tableAction: PropTypes.node,
 	customRowsPerPage: PropTypes.number,
-	collapsible: PropTypes.bool
 };
 
 TableSortBox.defaultProps = {
@@ -173,7 +123,6 @@ export default function TableSortBox({
 	defaultSort,
 	tableAction,
 	customRowsPerPage,
-	collapsible
 }) {
 	const theme = useTheme();
 	const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
@@ -183,7 +132,7 @@ export default function TableSortBox({
 	const [page, setPage] = useState(0);
 	const [rowsPerPage, setRowsPerPage] = useState(customRowsPerPage ? customRowsPerPage : 10);
 
-	const tableBodyData = valueLabelBody ? tableBody : tableBody.map((element) => element.value);
+	const tableBodyData = valueLabelBody ? tableBody : tableBody.map((e) => e.value);
 
 	const filteredBody = applySortFilter(
 		tableBodyData,
@@ -226,7 +175,7 @@ export default function TableSortBox({
 			placeholder='Rechercher...'
 			startAdornment={
 				<InputAdornment position='start'>
-					<Box component={Icon} icon={searchFill} sx={{ color: 'text.disabled' }} />
+					<Box component={Icon} icon={searchFill} />
 				</InputAdornment>
 			}
 		/>
@@ -238,7 +187,7 @@ export default function TableSortBox({
 				title={title}
 				subheader={subheader}
 				sx={{ mb: 1 }}
-				action={!tableAction && searchBar}
+				action={searchBar}
 			/>
 			{tableAction && (
 				<Grid container spacing={1} sx={{ padding: theme.spacing(0, 2) }}>
@@ -255,7 +204,6 @@ export default function TableSortBox({
 				<Table>
 					<TableHead>
 						<TableRow>
-							{collapsible && <TableCell />}
 							{tableHead.map((headCell) => (
 								<TableCell
 									key={headCell.id}
@@ -292,7 +240,6 @@ export default function TableSortBox({
 									tableBody={tableBody}
 									valueLabelBody={valueLabelBody}
 									row={row}
-									collapsible={collapsible}
 								/>
 							))}
 						{emptyRows > 0 && (

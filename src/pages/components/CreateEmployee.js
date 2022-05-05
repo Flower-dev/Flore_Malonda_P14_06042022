@@ -13,6 +13,7 @@ import FormInput from '../../components/FormInput';
 import Confirmation from '../../assets/img/confirmation.png';
 // custom 
 import '../../custom/components/createEmployee.scss';
+
 // ----------------------------------------
 
 export default function CreateEmployee() {

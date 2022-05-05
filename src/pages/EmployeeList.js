@@ -66,7 +66,7 @@ export default function EmployeeList() {
         <div className='table-container'>
             {employeesInfos?.length >= 1 ? 
                 <TableSortBox 
-                    title='List'
+                    title="Employees' list"
                     tableHead={tableHead}
                     tableBody={tableBody()}
                     valueLabelBody={false}

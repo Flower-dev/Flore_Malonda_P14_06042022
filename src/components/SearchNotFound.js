@@ -2,7 +2,7 @@ import { Paper, Typography } from '@mui/material';
 
 // ----------------------------------------------------------------------
 
-export default function SearchNotFound({ searchQuery = '', ...other }) {
+export default function SearchNotFound({ searchQuery, ...other }) {
 	return searchQuery ? (
 		<Paper {...other}>
 			<Typography gutterBottom align='center' variant='subtitle1'>
