@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 // components
 import TableSortBox from '../components/Table';
+import TableSearch from '../components/TableSearch';
 // custom
 import '../custom/pages/employeeList.scss';
 
@@ -11,6 +12,7 @@ export default function EmployeeList() {
     useEffect( () => {
 		let data = JSON.parse(localStorage.getItem('infosEmployee'));
 		setEmployeesInfos(data);
+        console.log(data)
 	}, []);
          
     const tableHead  = [
@@ -61,9 +63,10 @@ export default function EmployeeList() {
 			});
 			return { value: dataValues, label: dataLabels };
 	});
- 
+
     return (
         <div className='table-container'>
+            < TableSearch />
             {employeesInfos?.length >= 1 ? 
                 <TableSortBox 
                     title="Employees' list"

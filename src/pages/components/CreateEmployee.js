@@ -13,7 +13,7 @@ import FormInput from '../../components/FormInput';
 import Confirmation from '../../assets/img/confirmation.png';
 // custom 
 import '../../custom/components/createEmployee.scss';
-// import DatePicker  from 'datepickerplugin';
+// import {DatePicker}  from 'datepickerplugin/dist/index';
 
 // ----------------------------------------
 
