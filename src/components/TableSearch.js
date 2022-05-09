@@ -166,7 +166,7 @@ export default function TableSearch({
           <tr>
               {tableHead.map((headCell) => {
                 return (
-                    <th>{headCell.label}</th>
+                    <th key={headCell.id}>{headCell.label}</th>
                 )
                 })}
           </tr>

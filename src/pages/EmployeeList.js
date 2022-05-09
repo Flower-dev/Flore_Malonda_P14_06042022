@@ -66,7 +66,9 @@ export default function EmployeeList() {
 
     return (
         <div className='table-container'>
-            < TableSearch />
+            < TableSearch 
+                tableHead={tableHead}
+            />
             {employeesInfos?.length >= 1 ? 
                 <TableSortBox 
                     title="Employees' list"
