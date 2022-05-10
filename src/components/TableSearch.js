@@ -114,15 +114,16 @@ export default function TableSearch({
 	const requestSearch = (searchedVal) => {
 		console.log(tableBody)
 		const filteredRows = tableBody.filter((row) => {
-			return row.firstName.toLowerCase().includes(searchedVal.toLowerCase());
+			return row.firstName.includes(searchedVal);
 		});
 		setRows(filteredRows);
+		console.log(filteredRows)
 	};
 
-	const cancelSearch = () => {
-		setSearched("");
-		requestSearch(searched);
-	};
+	// const cancelSearch = () => {
+	// 	setSearched("");
+	// 	requestSearch(searched);
+	// };
 
 	// Avoid a layout jump when reaching the last page with empty rows.
 	const emptyRows =
@@ -144,7 +145,7 @@ export default function TableSearch({
 				placeholder='Search ...'
 				value={searched}
 				onChange={(searchVal) => requestSearch(searchVal)}
-				onCancelSearch={() => cancelSearch()}
+				// onCancelSearch={() => cancelSearch()}
         	/>
 			<table aria-label="custom pagination table">
 				<thead>
