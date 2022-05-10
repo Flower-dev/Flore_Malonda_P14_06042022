@@ -3,26 +3,7 @@ import { styled } from '@mui/system';
 import TablePaginationUnstyled, {
 	tablePaginationUnstyledClasses as classes,
 } from '@mui/base/TablePaginationUnstyled';
-
-
-const blue = {
-	200: '#A5D8FF',
-	400: '#3399FF',
-};
-
-const grey = {
-	50: '#F3F6F9',
-	100: '#E7EBF0',
-	200: '#E0E3E7',
-	300: '#CDD2D7',
-	400: '#B2BAC2',
-	500: '#A0AAB4',
-	600: '#6F7E8C',
-	700: '#3E5060',
-	800: '#2D3843',
-	900: '#1A2027',
-};
-
+import '../custom/components/tableSearch.scss';
 
 const Root = styled('div')(
 	() => `
@@ -30,25 +11,27 @@ const Root = styled('div')(
 		font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
     	'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
     	sans-serif;
-		font-size: 0.875rem;
 		border-collapse: collapse;
 		width: 100%;
 	}
 
 	td,
 	th {
-		text-align: left;
+		text-align: center;
 		padding: 6px;
+		font-size: 11px;
 	}
 
 	th {
-		background-color: ${grey[100]};
+		background-color: #012326;
+		color: white;
+		font-size: 12px;
 	}
 	`,
 );
 
 const CustomTablePagination = styled(TablePaginationUnstyled)(
-	({ theme }) => `
+	() => `
 	& .${classes.spacer} {
 		display: none;
 	}
@@ -71,16 +54,16 @@ const CustomTablePagination = styled(TablePaginationUnstyled)(
 
 	& .${classes.select}{
 		padding: 2px;
-		border: 1px solid ${grey[200]};
+		border: 1px solid '#E0E3E7';
 		border-radius: 50px;
 		background-color: transparent;
 
 		&:hover {
-			background-color: ${grey[50]};
+			background-color: '#F3F6F9';
 		}
 
 		&:focus {
-			outline: 1px solid ${blue[200]};
+			outline: 1px solid '#A5D8FF';
 		}
 	}
 
@@ -94,7 +77,7 @@ const CustomTablePagination = styled(TablePaginationUnstyled)(
 
 	& .${classes.actions} {
 		padding: 2px;
-		border: 1px solid ${grey[200]};
+		border: 1px solid '#E0E3E7';
 		border-radius: 50px;
 		text-align: center;
 	}
@@ -106,11 +89,11 @@ const CustomTablePagination = styled(TablePaginationUnstyled)(
 		background-color: transparent;
 
 		&:hover {
-			background-color: ${grey[50]};
+			background-color: '#F3F6F9';
 		}
 
 		&:focus {
-			outline: 1px solid ${blue[200]};
+			outline: 1px solid '#A5D8FF';
 		}
 	}
 	`,

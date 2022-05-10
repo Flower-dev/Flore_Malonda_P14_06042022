@@ -7,9 +7,21 @@
     margin-left: 20px;
 }
 
+.title-employee {
+    margin-left: 20px;
+    letter-spacing: 2px;
+    font-weight: normal;
+    color: #012326;
+    margin-bottom: -5%;
+}
+
 @media (max-width: 520px) {
     .table-container {
         width: 90.5%;
+        margin-left: 10px;
+    }
+
+    .title-employee {
         margin-left: 10px;
     }
    

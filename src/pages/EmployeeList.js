@@ -25,52 +25,18 @@ export default function EmployeeList() {
         { label: 'Department', id: 'department' },
     ]
 
-    // const tableBody = () =>
-	// 	employeesInfos.map((el) => {
-	// 		const values = [];
-	// 		const labels = [];
-	// 		values.push(
-    //             el.firstName, 
-    //             el.lastName, 
-    //             el.dateOfBirth, 
-    //             el.startDate,
-    //             el.state,
-    //             el.city,
-    //             el.street,
-    //             el.zipCode,
-    //             el.department
-    //         );
-	// 		labels.push(
-	// 			el.firstName, 
-    //             el.lastName, 
-    //             el.dateOfBirth, 
-    //             el.startDate,
-    //             el.state,
-    //             el.city,
-    //             el.street,
-    //             el.zipCode,
-    //             el.department
-	// 		);
-	// 		const dataValues = {};
-	// 		const dataLabels = {};
-	// 		let i = 0;
-	// 		tableHead.forEach((label) => {
-	// 			dataValues[label.id] = values[i];
-	// 			dataLabels[label.id] = labels[i];
-	// 			i += 1;
-	// 		});
-	// 		return { value: dataValues, label: dataLabels };
-	// });
-
     return (
-        <div className='table-container'>
-            {/* {employeesInfos?.length >= 1 ?  */}
-            < TableSearch 
-                tableHead={tableHead}
-                tableBody={employeesInfos}
-                valueLabelBody={false}
-            />
-            {/* : 'Please create an employee to see their informations'} */}
-        </div>
+        <>
+            <h3 className='title-employee'>Employees' list</h3>
+            <div className='table-container'>
+                {employeesInfos?.length >= 1 ? 
+                < TableSearch 
+                    tableHead={tableHead}
+                    tableBody={employeesInfos}
+                    valueLabelBody={false}
+                />
+                : 'Please create an employee to see their informations'}
+            </div>
+        </>
     )
 }
