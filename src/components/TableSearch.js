@@ -5,6 +5,7 @@ import TablePaginationUnstyled, {
 } from '@mui/base/TablePaginationUnstyled';
 import '../custom/components/tableSearch.scss';
 
+
 const Root = styled('div')(
 	() => `
 	table {
@@ -113,12 +114,13 @@ export default function TableSearch({
 	
 	const requestSearch = (searchedVal) => {
 		console.log(tableBody)
-		const filteredRows = tableBody.filter((row) => {
-			return row.firstName.includes(searchedVal);
+		const filteredRows = tableBody?.filter((row) => {
+			return row.firstName.includes(searchedVal).includes(searchedVal.toLowerCase());
 		});
 		setRows(filteredRows);
 		console.log(filteredRows)
 	};
+
 
 	// const cancelSearch = () => {
 	// 	setSearched("");
@@ -160,8 +162,8 @@ export default function TableSearch({
 				<tbody>
 					{tableBody
 						.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-						.map((row) => (
-							<tr key={row.id}>
+						.map((row, rowId) => (
+							<tr key={rowId}>
 								<td align="center">
 									{row.firstName}
 								</td>
