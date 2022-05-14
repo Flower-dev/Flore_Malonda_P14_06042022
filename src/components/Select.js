@@ -17,7 +17,7 @@ export default function Select({ options, initialInputValue, onChange, name }) {
 				className='DropdownMenu__button'
 				onClick={() => setOpen(!open)}
 			>
-				{inputValue !== '' ? inputValue : `Click to select a ${name}`}
+				{inputValue !== '' ? inputValue : `Select a ${name}`}
 			</button> 
 			<ul className='DropdownMenu__options' >
 				{options.map((option) => {
