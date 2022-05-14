@@ -5,7 +5,6 @@ import useModal from '../../hooks/useModal';
 // mocks data
 import {stateList, departmentList} from '../../_mocks_/data';
 // components
-import DatePicker from '../../components/DatePicker';
 import Select from '../../components/Select';
 import Modal from '../../components/Modal';
 import FormInput from '../../components/FormInput';
@@ -13,7 +12,7 @@ import FormInput from '../../components/FormInput';
 import Confirmation from '../../assets/img/confirmation.png';
 // custom 
 import '../../custom/components/createEmployee.scss';
-// import {DatePicker}  from 'datepickerplugin/dist/index';
+import {DatePicker}  from 'datepickerplugin';
 
 // ----------------------------------------
 
@@ -76,9 +75,6 @@ export default function CreateEmployee() {
                             <label className='labelForm'>Date of Birth</label>
                         </div>
                         <div>
-                            {/* <DatePicker 
-                                onChange={(value) => setDateOfBirth(value)}
-                            /> */}
                             <DatePicker 
                                 onChange={(value) => setDateOfBirth(value)}
                             />
