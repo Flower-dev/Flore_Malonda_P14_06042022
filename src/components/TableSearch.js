@@ -106,17 +106,14 @@ export default function TableSearch({
 }) {
 	const [page, setPage] = useState(0);
 	const [rowsPerPage, setRowsPerPage] = useState(5);
-	const [rows, setRows] = useState([]);
+	const [rows, setRows] = useState(tableBody);
 	const [searched, setSearched] = useState('');
 
-	console.log(tableBody);
-	console.log(rows);
-	
 	const requestSearch = (searchedVal) => {
-		console.log(tableBody)
 		const filteredRows = tableBody?.filter((row) => {
-			return row.firstName.includes(searchedVal).includes(searchedVal.toLowerCase());
+			return row.firstName.toLowerCase().includes(searchedVal.toLowerCase());
 		});
+		setSearched(searchedVal);
 		setRows(filteredRows);
 		console.log(filteredRows)
 	};
@@ -146,8 +143,8 @@ export default function TableSearch({
 				className='search-table'
 				placeholder='Search ...'
 				value={searched}
-				onChange={(searchVal) => requestSearch(searchVal)}
-				// onCancelSearch={() => cancelSearch()}
+				onChange={(searchVal) => requestSearch(searchVal.target.value)}
+				//onCancelSearch={() => cancelSearch()}
         	/>
 			<table aria-label="custom pagination table">
 				<thead>
@@ -160,7 +157,7 @@ export default function TableSearch({
 					</tr>
 				</thead>
 				<tbody>
-					{tableBody
+					{rows
 						.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
 						.map((row, rowId) => (
 							<tr key={rowId}>
