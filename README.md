@@ -31,6 +31,8 @@ Your server should now be running at http://locahost:3000
 
 ![screen n°1](img/img1.png)
 
+![screen n°2](img/img2.png)
+
 This project uses a simple and reusable Datepicker component.
 
 - **documentation** : https://www.npmjs.com/package/datepickerplugin

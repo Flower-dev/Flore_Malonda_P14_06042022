@@ -13,7 +13,9 @@ export default function Header() {
     return (
         <div className='header-container'>
             <div className='header-title'>
-                <h1>HRnet</h1>
+                <Link to='/' className='link-button'>
+                    <h1>HRnet</h1>
+                </Link> 
             </div>
             <div className='header-nav'>
                 <div>

@@ -3,7 +3,8 @@ import { useState, useEffect } from 'react';
 import TableSearch from '../components/TableSearch';
 // custom
 import '../custom/pages/employeeList.scss';
-
+// assets
+import NoData from '../assets/img/noData.png';
 // -----------------------------------------------
 export default function EmployeeList() {
     const [employeesInfos, setEmployeesInfos] = useState([]);
@@ -30,12 +31,21 @@ export default function EmployeeList() {
             <h3 className='title-employee'>Employees' list</h3>
             <div className='table-container'>
                 {employeesInfos?.length >= 1 ? 
-                < TableSearch 
-                    tableHead={tableHead}
-                    tableBody={employeesInfos}
-                    valueLabelBody={false}
-                />
-                : 'Please create an employee to see their informations'}
+                    < TableSearch 
+                        tableHead={tableHead}
+                        tableBody={employeesInfos}
+                        valueLabelBody={false}
+                    />
+                : 
+                    <div className='noData-container'>
+                        <div>
+                            <p className='text-noData'>Please create an employee to see their informations</p>
+                        </div>
+                        <div>
+                            <img className='img-noData' src={NoData} alt='noData'/>
+                        </div>
+                    </div>
+                }
             </div>
         </>
     )

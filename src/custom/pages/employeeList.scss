@@ -6,6 +6,26 @@
     box-shadow: 5px 5px 5px lightgrey;
     margin-left: 20px;
 }
+.noData-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    width: 100%;
+}
+
+.text-noData {
+    text-align: center;
+    color: #012326;
+    letter-spacing: 1.5px;
+    font-size: 12px;
+}
+
+.img-noData {
+    width: 20%;
+    text-align: center;
+    object-fit: cover;
+    padding-left: 40%;
+}
 
 .title-employee {
     margin-left: 20px;

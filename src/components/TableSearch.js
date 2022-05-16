@@ -115,16 +115,13 @@ export default function TableSearch({
 		});
 		setSearched(searchedVal);
 		setRows(filteredRows);
-		console.log(filteredRows)
 	};
-
 
 	// const cancelSearch = () => {
 	// 	setSearched("");
 	// 	requestSearch(searched);
 	// };
 
-	// Avoid a layout jump when reaching the last page with empty rows.
 	const emptyRows =
 		page > 0 ? Math.max(0, (1 + page) * rowsPerPage - rows.length) : 0;
 
@@ -136,6 +133,8 @@ export default function TableSearch({
 		setRowsPerPage(parseInt(event.target.value, 10));
 		setPage(0);
 	};
+
+
 
 	return (
 		<Root sx={{ maxWidth: '100%' }}>
@@ -156,6 +155,28 @@ export default function TableSearch({
 						})}
 					</tr>
 				</thead>
+				{/* <tbody>
+            {rows
+			.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+			.map((row, rowId) => {
+              return (
+                <tr key={rowId}>
+                  {tableHead.map((header, index) => {
+					  return(
+                      <td key={index}>
+                          <span>{row[header]}</span>                      
+                      </td>)
+
+                  })}
+                </tr>
+              );
+            })}
+			{emptyRows > 0 && (
+				<tr style={{ height: 34 * emptyRows }}>
+					<td colSpan={3} />
+				</tr>
+			)}
+          </tbody> */}
 				<tbody>
 					{rows
 						.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
@@ -168,10 +189,10 @@ export default function TableSearch({
 									{row.lastName}
 								</td>
 								<td align="center">
-									{row.dateOfBirth}
+									{new Date(row.dateOfBirth).toDateString()}
 								</td>
 								<td align="center">
-									{row.startDate}
+									{new Date(row.startDate).toDateString()}
 								</td>
 								<td align="center">
 									{row.state}
