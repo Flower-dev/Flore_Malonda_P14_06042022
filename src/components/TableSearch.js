@@ -1,10 +1,15 @@
 import React, { useState } from 'react';
 import { styled } from '@mui/system';
+import Box from '@mui/material/Box';
+import TableSortLabel from '@mui/material/TableSortLabel';
 import TablePaginationUnstyled, {
 	tablePaginationUnstyledClasses as classes,
 } from '@mui/base/TablePaginationUnstyled';
+import { visuallyHidden } from '@mui/utils';
 import '../custom/components/tableSearch.scss';
 
+
+// ------------------------------------- Style -----------------------------------------------------
 
 const Root = styled('div')(
 	() => `
@@ -24,8 +29,8 @@ const Root = styled('div')(
 	}
 
 	th {
-		background-color: #012326;
-		color: white;
+		background-color: #F0F0F2;
+		color: black;
 		font-size: 12px;
 	}
 	`,
@@ -100,18 +105,24 @@ const CustomTablePagination = styled(TablePaginationUnstyled)(
 	`,
 );
 
-export default function TableSearch({
-	tableHead,
-	tableBody,
-}) {
+
+// -----------------------------------------------------
+
+export default function TableSearch({ tableHead, tableBody }) {
+
 	const [page, setPage] = useState(0);
-	const [rowsPerPage, setRowsPerPage] = useState(5);
+	const [rowsPerPage, setRowsPerPage] = useState(10);
 	const [rows, setRows] = useState(tableBody);
 	const [searched, setSearched] = useState('');
+	const [order, setOrder] = React.useState('asc');
+	const [orderBy, setOrderBy] = React.useState('firstName');
 
+	// Seach 
 	const requestSearch = (searchedVal) => {
 		const filteredRows = tableBody?.filter((row) => {
-			return row.firstName.toLowerCase().includes(searchedVal.toLowerCase());
+			return row.firstName.toLowerCase().includes(searchedVal.toLowerCase()) || 
+				   row.lastName.toLowerCase().includes(searchedVal.toLowerCase()) ||
+				   row.department.toLowerCase().includes(searchedVal.toLowerCase()) ;
 		});
 		setSearched(searchedVal);
 		setRows(filteredRows);
@@ -122,6 +133,7 @@ export default function TableSearch({
 	// 	requestSearch(searched);
 	// };
 
+	// Pagination
 	const emptyRows =
 		page > 0 ? Math.max(0, (1 + page) * rowsPerPage - rows.length) : 0;
 
@@ -134,8 +146,82 @@ export default function TableSearch({
 		setPage(0);
 	};
 
+	// filter
 
+	function descendingComparator(a, b, orderBy) {
+		if (b[orderBy] < a[orderBy]) {
+		  return -1;
+		}
+		if (b[orderBy] > a[orderBy]) {
+		  return 1;
+		}
+		return 0;
+	}
+	  
+	function getComparator(order, orderBy) {
+		return order === 'desc'
+		  ? (a, b) => descendingComparator(a, b, orderBy)
+		  : (a, b) => -descendingComparator(a, b, orderBy);
+	}
+	  
+	// This method is created for cross-browser compatibility, if you don't
+	// need to support IE11, you can use Array.prototype.sort() directly
+	function stableSort(array, comparator) {
+		const stabilizedThis = array.map((el, index) => [el, index]);
+		stabilizedThis.sort((a, b) => {
+		  const order = comparator(a[0], b[0]);
+		  if (order !== 0) {
+			return order;
+		  }
+		  return a[1] - b[1];
+		});
+		return stabilizedThis.map((el) => el[0]);
+	}
+	
+	  
+	function EnhancedTableHead( props ) {
+		const { order, orderBy, onRequestSort } =
+		  props;
+		const createSortHandler = (property) => (event) => {
+		  onRequestSort(event, property);
+		};
 
+		return (
+			<thead>
+				<tr>
+					{tableHead.map((headCell) => (
+						<th
+							key={headCell.id}
+							align='center'
+							padding={headCell.disablePadding ? 'none' : 'normal'}
+							sortDirection={orderBy === headCell.id ? order : false}
+						>
+							<TableSortLabel
+								active={orderBy === headCell.id}
+								direction={orderBy === headCell.id ? order : 'asc'}
+								onClick={createSortHandler(headCell.id)}
+							>
+								{headCell.label}
+								{orderBy === headCell.id ? (
+									<Box component="span" sx={visuallyHidden}>
+									{order === 'desc' ? 'sorted descending' : 'sorted ascending'}
+									</Box>
+								) : null}
+							</TableSortLabel>
+						</th>
+					))}
+				</tr>
+			</thead>
+		)
+	}
+	
+	const handleRequestSort = (event, property) => {
+		const isAsc = orderBy === property && order === 'asc';
+		setOrder(isAsc ? 'desc' : 'asc');
+		setOrderBy(property);
+	};
+
+	
 	return (
 		<Root sx={{ maxWidth: '100%' }}>
 			<input
@@ -145,40 +231,15 @@ export default function TableSearch({
 				onChange={(searchVal) => requestSearch(searchVal.target.value)}
 				//onCancelSearch={() => cancelSearch()}
         	/>
-			<table aria-label="custom pagination table">
-				<thead>
-					<tr>
-						{tableHead.map((headCell) => {
-							return (
-								<th key={headCell.id} align='center'>{headCell.label}</th>
-							)
-						})}
-					</tr>
-				</thead>
-				{/* <tbody>
-            {rows
-			.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-			.map((row, rowId) => {
-              return (
-                <tr key={rowId}>
-                  {tableHead.map((header, index) => {
-					  return(
-                      <td key={index}>
-                          <span>{row[header]}</span>                      
-                      </td>)
-
-                  })}
-                </tr>
-              );
-            })}
-			{emptyRows > 0 && (
-				<tr style={{ height: 34 * emptyRows }}>
-					<td colSpan={3} />
-				</tr>
-			)}
-          </tbody> */}
+			<table>
+				<EnhancedTableHead
+					order={order}
+					orderBy={orderBy}
+					onRequestSort={handleRequestSort}
+					rowCount={rows.length}
+				/>
 				<tbody>
-					{rows
+					{stableSort(rows, getComparator(order, orderBy))
 						.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
 						.map((row, rowId) => (
 							<tr key={rowId}>
