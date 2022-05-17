@@ -33,6 +33,8 @@ Your server should now be running at http://locahost:3000
 
 ![screen n°2](img/img2.png)
 
+![screen n°3](img/img3.png)
+
 This project uses a simple and reusable Datepicker component.
 
 - **documentation** : https://www.npmjs.com/package/datepickerplugin
@@ -49,3 +51,5 @@ Or via **yarn**
 ```bash
 yarn add datepickerplugin
 ```
+
+<img src="img/img4.png" alt="datepicker" width="350"/>

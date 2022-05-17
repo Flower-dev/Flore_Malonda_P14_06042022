@@ -1,5 +1,5 @@
 // assets
-import PresentationImg from '../assets/img/presentation.png';
+import PresentationImg from '../assets/img/presentation2.png';
 // custom 
 import '../custom/components/presentation.scss';
 
