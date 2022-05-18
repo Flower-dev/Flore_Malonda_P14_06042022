@@ -164,8 +164,7 @@ export default function TableSearch({ tableHead, tableBody }) {
 		  : (a, b) => -descendingComparator(a, b, orderBy);
 	}
 	  
-	// This method is created for cross-browser compatibility, if you don't
-	// need to support IE11, you can use Array.prototype.sort() directly
+
 	function stableSort(array, comparator) {
 		const stabilizedThis = array.map((el, index) => [el, index]);
 		stabilizedThis.sort((a, b) => {
@@ -194,7 +193,7 @@ export default function TableSearch({ tableHead, tableBody }) {
 							key={headCell.id}
 							align='center'
 							padding={headCell.disablePadding ? 'none' : 'normal'}
-							sortDirection={orderBy === headCell.id ? order : false}
+							direction={orderBy === headCell.id ? order : 'asc'}
 						>
 							<TableSortLabel
 								active={orderBy === headCell.id}
