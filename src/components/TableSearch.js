@@ -105,17 +105,30 @@ const CustomTablePagination = styled(TablePaginationUnstyled)(
 	`,
 );
 
+// function to create tableBody  
+	function Row({ tableHead, data }) {
+		return (
+			<tr>
+				{tableHead.map((col, index) => (
+					<td align='center' key={index}>
+						{data.label[col.id]}
+					</td>
+				))}
+			</tr>
+		);
+	}
+
 
 // -----------------------------------------------------
 
-export default function TableSearch({ tableHead, tableBody }) {
-
+export default function TableSearch({ tableHead, tableBody, defaultSort }) {
+	console.log(tableBody)
 	const [page, setPage] = useState(0);
 	const [rowsPerPage, setRowsPerPage] = useState(10);
 	const [rows, setRows] = useState(tableBody);
 	const [searched, setSearched] = useState('');
-	const [order, setOrder] = React.useState('asc');
-	const [orderBy, setOrderBy] = React.useState('firstName');
+	const [order, setOrder] = useState(defaultSort.order);
+	const [orderBy, setOrderBy] = useState(defaultSort.orderBy);
 
 	// Seach 
 	const requestSearch = (searchedVal) => {
@@ -127,11 +140,6 @@ export default function TableSearch({ tableHead, tableBody }) {
 		setSearched(searchedVal);
 		setRows(filteredRows);
 	};
-
-	// const cancelSearch = () => {
-	// 	setSearched("");
-	// 	requestSearch(searched);
-	// };
 
 	// Pagination
 	const emptyRows =
@@ -146,8 +154,7 @@ export default function TableSearch({ tableHead, tableBody }) {
 		setPage(0);
 	};
 
-	// filter
-
+	// filter table
 	function descendingComparator(a, b, orderBy) {
 		if (b[orderBy] < a[orderBy]) {
 		  return -1;
@@ -203,7 +210,7 @@ export default function TableSearch({ tableHead, tableBody }) {
 								{headCell.label}
 								{orderBy === headCell.id ? (
 									<Box component="span" sx={visuallyHidden}>
-									{order === 'desc' ? 'sorted descending' : 'sorted ascending'}
+										{order === 'desc' ? 'sorted descending' : 'sorted ascending'}
 									</Box>
 								) : null}
 							</TableSortLabel>
@@ -214,13 +221,12 @@ export default function TableSearch({ tableHead, tableBody }) {
 		)
 	}
 	
-	const handleRequestSort = (event, property) => {
+	const handleRequestSort = (e, property) => {
 		const isAsc = orderBy === property && order === 'asc';
 		setOrder(isAsc ? 'desc' : 'asc');
 		setOrderBy(property);
 	};
 
-	
 	return (
 		<Root sx={{ maxWidth: '100%' }}>
 			<input
@@ -228,7 +234,6 @@ export default function TableSearch({ tableHead, tableBody }) {
 				placeholder='Search ...'
 				value={searched}
 				onChange={(searchVal) => requestSearch(searchVal.target.value)}
-				//onCancelSearch={() => cancelSearch()}
         	/>
 			<table>
 				<EnhancedTableHead
@@ -241,35 +246,11 @@ export default function TableSearch({ tableHead, tableBody }) {
 					{stableSort(rows, getComparator(order, orderBy))
 						.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
 						.map((row, rowId) => (
-							<tr key={rowId}>
-								<td align="center">
-									{row.firstName}
-								</td>
-								<td align="center">
-									{row.lastName}
-								</td>
-								<td align="center">
-									{new Date(row.dateOfBirth).toDateString()}
-								</td>
-								<td align="center">
-									{new Date(row.startDate).toDateString()}
-								</td>
-								<td align="center">
-									{row.state}
-								</td>
-								<td align="center">
-									{row.city}
-								</td>
-								<td align="center">
-									{row.street}
-								</td>
-								<td align="center">
-									{row.zipCode}
-								</td>
-								<td align="center">
-									{row.department}
-								</td>
-						  	</tr>
+							<Row
+								key={rowId}
+								tableHead={tableHead}
+								data={row}
+							/>
 						)
 					)}
 

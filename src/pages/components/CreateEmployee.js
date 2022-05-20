@@ -60,14 +60,14 @@ export default function CreateEmployee() {
                         placeholder='First Name' 
                         type='text'
                         name='firstName' 
-                        required
+                        required={true}
                         onChange={(value) => setFirstName(value)}
                     />
                     <FormInput
                         placeholder='Last Name'
                         type='text'
                         name='lastName'
-                        required
+                        required={true}
                         onChange={(value) => setLastName(value)}
                     />
                     <div className='container-forminput'>
@@ -88,7 +88,7 @@ export default function CreateEmployee() {
                         placeholder='Street'
                         type='text'
                         name='street'
-                        required
+                        required={true}
                         onChange={(value) => setStreet(value)}
                     />
                     <div className='input-block-city'>
@@ -97,7 +97,7 @@ export default function CreateEmployee() {
                                 placeholder='City'
                                 type='text'
                                 name='city'
-                                required
+                                required={true}
                                 onChange={(value) => setCity(value)}
                             />
                         </div>
@@ -106,7 +106,8 @@ export default function CreateEmployee() {
                                 placeholder='Zip Code'
                                 type='number' 
                                 name='zipCode'
-                                required
+                                min='0'
+                                required={true}
                                 onChange={(value) => setZipCode(value)}
                             />
                         </div>
@@ -114,7 +115,7 @@ export default function CreateEmployee() {
                             <Select 
                                 options={stateList} 
                                 name='state'
-                                required
+                                required={true}
                                 onChange={(value) => setState(value)}
                             />
                         </div>
@@ -126,7 +127,7 @@ export default function CreateEmployee() {
                     <Select 
                         options={departmentList} 
                         name='department'
-                        required
+                        required={true}
                         onChange={(value) => setDepartment(value)}
                     />
                     <div className='container-forminput'>

@@ -8,7 +8,7 @@ import NoData from '../assets/img/noData.png';
 // -----------------------------------------------
 export default function EmployeeList() {
     const [employeesInfos, setEmployeesInfos] = useState([]);
-
+  
     useEffect( () => {
 		let data = JSON.parse(localStorage.getItem('infosEmployee'));
 		setEmployeesInfos(data);
@@ -26,16 +26,56 @@ export default function EmployeeList() {
         { label: 'Department', id: 'department' },
     ]
 
+    const tableBody = employeesInfos.map((employee) => {
+		const values = [];
+		const labels = [];
+
+		values.push(
+			employee.firstName,
+            employee.lastName,
+            new Date(employee.dateOfBirth).toDateString(),
+            new Date(employee.startDate).toDateString(),
+            employee.state,
+            employee.city,
+            employee.street,
+            employee.zipCode,
+            employee.department
+		);
+		labels.push(
+			employee.firstName,
+            employee.lastName,
+            new Date(employee.dateOfBirth).toDateString(),
+            new Date(employee.startDate).toDateString(),
+            employee.state,
+            employee.city,
+            employee.street,
+            employee.zipCode,
+            employee.department
+		);
+		const dataValues = {};
+		const dataLabels = {};
+		let i = 0;
+		tableHead.forEach((label) => {
+			dataValues[label.id] = values[i];
+			dataLabels[label.id] = labels[i];
+			i += 1;
+		});
+		return { value: dataValues, label: dataLabels };
+	});
+
+
     return (
         <>
             <h3 className='title-employee'>Employees' list</h3>
             <div className='table-container'>
                 {employeesInfos?.length >= 1 ? 
+                <>
                     < TableSearch 
                         tableHead={tableHead}
-                        tableBody={employeesInfos}
-                        valueLabelBody={false}
+                        tableBody={tableBody}
+                        defaultSort={{order: 'asc', orderBy: 'firstName'}}
                     />
+                </>
                 : 
                     <div className='noData-container'>
                         <div>
