@@ -76,6 +76,7 @@ export default function CreateEmployee() {
                         </div>
                         <div className='datepicker'>
                             <DatePicker 
+                                required={true}
                                 onChange={(value) => setDateOfBirth(value)}
                             />
                         </div>

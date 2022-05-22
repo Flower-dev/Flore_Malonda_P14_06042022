@@ -6,16 +6,15 @@ import Paper from '@mui/material/Paper';
 import TableSortLabel from '@mui/material/TableSortLabel';
 import TablePaginationUnstyled, {
 	tablePaginationUnstyledClasses as classes,
-} from '@mui/base/TablePaginationUnstyled';
+  } from '@mui/base/TablePaginationUnstyled';
 import { visuallyHidden } from '@mui/utils';
 import '../custom/components/tableSearch.scss';
 import  PropTypes from 'prop-types';
 
-
 // ------------------------------------- Style -----------------------------------------------------
 
 const Root = styled('div')(
-	() => `
+	({theme}) => `
 	table {
 		font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
     	'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
@@ -40,7 +39,7 @@ const Root = styled('div')(
 );
 
 const CustomTablePagination = styled(TablePaginationUnstyled)(
-	() => `
+	({theme}) => `
 	& .${classes.spacer} {
 		display: none;
 	}
