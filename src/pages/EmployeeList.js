@@ -13,7 +13,7 @@ export default function EmployeeList() {
 		let data = JSON.parse(localStorage.getItem('infosEmployee'));
 		setEmployeesInfos(data);
 	}, []);
-         
+
     const tableHead  = [
         { label: 'First Name', id: 'firstName' },
         { label: 'Last Name', id: 'lastName' },
@@ -26,10 +26,9 @@ export default function EmployeeList() {
         { label: 'Department', id: 'department' },
     ]
 
-    const tableBody = employeesInfos.map((employee) => {
+    const tableBody = employeesInfos?.map((employee) => {
 		const values = [];
 		const labels = [];
-
 		values.push(
 			employee.firstName,
             employee.lastName,
@@ -69,13 +68,11 @@ export default function EmployeeList() {
             <h3 className='title-employee'>Employees' list</h3>
             <div className='table-container'>
                 {employeesInfos?.length >= 1 ? 
-                <>
-                    < TableSearch 
+                    <TableSearch 
                         tableHead={tableHead}
                         tableBody={tableBody}
                         defaultSort={{order: 'asc', orderBy: 'firstName'}}
                     />
-                </>
                 : 
                     <div className='noData-container'>
                         <div>

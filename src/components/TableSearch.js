@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { filter } from 'lodash';
 import { styled } from '@mui/system';
 import Box from '@mui/material/Box';
 import TableSortLabel from '@mui/material/TableSortLabel';
@@ -7,6 +8,7 @@ import TablePaginationUnstyled, {
 } from '@mui/base/TablePaginationUnstyled';
 import { visuallyHidden } from '@mui/utils';
 import '../custom/components/tableSearch.scss';
+import  PropTypes from 'prop-types';
 
 
 // ------------------------------------- Style -----------------------------------------------------
@@ -105,8 +107,16 @@ const CustomTablePagination = styled(TablePaginationUnstyled)(
 	`,
 );
 
-// function to create tableBody  
-	function Row({ tableHead, data }) {
+// function to create tableBody 
+
+	Row.propTypes = {
+		tableHead: PropTypes.array,
+		data: PropTypes.object
+	}
+
+
+	function Row({ tableHead, data}) {
+		console.log(data)
 		return (
 			<tr>
 				{tableHead.map((col, index) => (
@@ -121,29 +131,78 @@ const CustomTablePagination = styled(TablePaginationUnstyled)(
 
 // -----------------------------------------------------
 
+TableSearch.propTypes = {
+	tableHead: PropTypes.array,
+	tableBody: PropTypes.array,
+	defaultSort: PropTypes.exact({
+		orderBy: PropTypes.string,
+		order: PropTypes.string
+	})
+};
+
+TableSearch.defaultProps = {
+	tableHead: [],
+	tableBody: [],
+	defaultSort: { order: 'asc', orderBy: null}
+}
+
+function descendingComparator(a, b, orderBy) {
+	if (b[orderBy] < a[orderBy]) {
+	  return -1;
+	}
+	if (b[orderBy] > a[orderBy]) {
+	  return 1;
+	}
+	return 0;
+}
+  
+function getComparator(order, orderBy) {
+	return order === 'desc'
+	  ? (a, b) => descendingComparator(a, b, orderBy)
+	  : (a, b) => -descendingComparator(a, b, orderBy);
+}
+  
+
+function stableSort(array, comparator, query) {
+	const stabilizedThis = array.map((el, index) => [el, index]);
+	stabilizedThis.sort((a, b) => {
+		const order = comparator(a[0], b[0]);
+		if (order !== 0) {
+			return order;
+	  	}
+	  	return a[1] - b[1];
+	});
+	if(query) {
+		return filter(array, (element) =>
+			Object.values(element).some((value) =>
+				typeof value === 'number'
+					? value.toString().indexOf(query) !== -1
+					: value !== null &&
+					  value !== undefined &&
+					  value.toLowerCase().indexOf((query).toLowerCase()) !== -1
+			)
+		);
+	}
+	return stabilizedThis.map((el) => el[0]);
+}
+
 export default function TableSearch({ tableHead, tableBody, defaultSort }) {
-	console.log(tableBody)
 	const [page, setPage] = useState(0);
-	const [rowsPerPage, setRowsPerPage] = useState(10);
-	const [rows, setRows] = useState(tableBody);
+	const [rowsPerPage, setRowsPerPage] = useState(5);
 	const [searched, setSearched] = useState('');
 	const [order, setOrder] = useState(defaultSort.order);
 	const [orderBy, setOrderBy] = useState(defaultSort.orderBy);
 
-	// Seach 
-	const requestSearch = (searchedVal) => {
-		const filteredRows = tableBody?.filter((row) => {
-			return row.firstName.toLowerCase().includes(searchedVal.toLowerCase()) || 
-				   row.lastName.toLowerCase().includes(searchedVal.toLowerCase()) ||
-				   row.department.toLowerCase().includes(searchedVal.toLowerCase()) ;
-		});
-		setSearched(searchedVal);
-		setRows(filteredRows);
-	};
 
-	// Pagination
+	const filteredBody = stableSort(
+		tableBody,
+		getComparator(order, orderBy),
+		searched
+	)
+
+	// functions to agination
 	const emptyRows =
-		page > 0 ? Math.max(0, (1 + page) * rowsPerPage - rows.length) : 0;
+		page > 0 ? Math.max(0, (1 + page) * rowsPerPage - tableBody.length) : 0;
 
 	const handleChangePage = (e, newPage) => {
 		setPage(newPage);
@@ -153,38 +212,7 @@ export default function TableSearch({ tableHead, tableBody, defaultSort }) {
 		setRowsPerPage(parseInt(event.target.value, 10));
 		setPage(0);
 	};
-
-	// filter table
-	function descendingComparator(a, b, orderBy) {
-		if (b[orderBy] < a[orderBy]) {
-		  return -1;
-		}
-		if (b[orderBy] > a[orderBy]) {
-		  return 1;
-		}
-		return 0;
-	}
-	  
-	function getComparator(order, orderBy) {
-		return order === 'desc'
-		  ? (a, b) => descendingComparator(a, b, orderBy)
-		  : (a, b) => -descendingComparator(a, b, orderBy);
-	}
-	  
-
-	function stableSort(array, comparator) {
-		const stabilizedThis = array.map((el, index) => [el, index]);
-		stabilizedThis.sort((a, b) => {
-		  const order = comparator(a[0], b[0]);
-		  if (order !== 0) {
-			return order;
-		  }
-		  return a[1] - b[1];
-		});
-		return stabilizedThis.map((el) => el[0]);
-	}
-	
-	  
+  
 	function EnhancedTableHead( props ) {
 		const { order, orderBy, onRequestSort } =
 		  props;
@@ -227,23 +255,27 @@ export default function TableSearch({ tableHead, tableBody, defaultSort }) {
 		setOrderBy(property);
 	};
 
+	const handleFilterBySearch = (e) => {
+		setSearched(e.target.value)
+	}
+
 	return (
 		<Root sx={{ maxWidth: '100%' }}>
 			<input
 				className='search-table'
 				placeholder='Search ...'
 				value={searched}
-				onChange={(searchVal) => requestSearch(searchVal.target.value)}
-        	/>
+				onChange={handleFilterBySearch}
+        	/> 
 			<table>
 				<EnhancedTableHead
 					order={order}
 					orderBy={orderBy}
 					onRequestSort={handleRequestSort}
-					rowCount={rows.length}
+					rowCount={tableBody.length}
 				/>
 				<tbody>
-					{stableSort(rows, getComparator(order, orderBy))
+					{filteredBody
 						.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
 						.map((row, rowId) => (
 							<Row
