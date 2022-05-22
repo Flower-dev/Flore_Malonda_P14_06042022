@@ -74,7 +74,7 @@ export default function CreateEmployee() {
                         <div>
                             <label className='labelForm'>Date of Birth</label>
                         </div>
-                        <div>
+                        <div className='datepicker'>
                             <DatePicker 
                                 onChange={(value) => setDateOfBirth(value)}
                             />
@@ -111,7 +111,7 @@ export default function CreateEmployee() {
                                 onChange={(value) => setZipCode(value)}
                             />
                         </div>
-                        <div className='input-block'>
+                        <div className='input-block form-select'>
                             <Select 
                                 options={stateList} 
                                 name='state'
@@ -124,17 +124,19 @@ export default function CreateEmployee() {
 
                 <div className='input-pro-info'>
                     <p className='subtitleForm'> - Professional information - </p>
-                    <Select 
-                        options={departmentList} 
-                        name='department'
-                        required={true}
-                        onChange={(value) => setDepartment(value)}
-                    />
+                    <div className='form-select'>
+                        <Select 
+                            options={departmentList} 
+                            name='department'
+                            required={true}
+                            onChange={(value) => setDepartment(value)}
+                        />
+                    </div>
                     <div className='container-forminput'>
                         <div>
                             <label className='labelForm'>Starting Date</label>
                         </div>
-                        <div>
+                        <div className='datepicker'>
                             <DatePicker 
                                 onChange={(value) => setStartDate(value)}
                             />

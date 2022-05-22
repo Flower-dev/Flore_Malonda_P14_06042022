@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { filter } from 'lodash';
 import { styled } from '@mui/system';
 import Box from '@mui/material/Box';
+import Paper from '@mui/material/Paper';
 import TableSortLabel from '@mui/material/TableSortLabel';
 import TablePaginationUnstyled, {
 	tablePaginationUnstyledClasses as classes,
@@ -116,7 +117,6 @@ const CustomTablePagination = styled(TablePaginationUnstyled)(
 
 
 	function Row({ tableHead, data}) {
-		console.log(data)
 		return (
 			<tr>
 				{tableHead.map((col, index) => (
@@ -260,6 +260,7 @@ export default function TableSearch({ tableHead, tableBody, defaultSort }) {
 	}
 
 	return (
+		<Paper sx={{ width: '100%', overflowY: 'auto', overflowX: 'auto'}}>
 		<Root sx={{ maxWidth: '100%' }}>
 			<input
 				className='search-table'
@@ -315,5 +316,6 @@ export default function TableSearch({ tableHead, tableBody, defaultSort }) {
 				</tfoot>
 			</table>
 		</Root>
+		</Paper>
 	);
 }

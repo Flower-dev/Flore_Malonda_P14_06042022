@@ -1,7 +1,15 @@
 // react 
 import { useState } from 'react';
+import PropsTypes from 'prop-types';
 // custom
 import '../custom/components/select.scss';
+
+Select.PropsTypes = {
+	options: PropsTypes.array,
+	initialInputValue: PropsTypes.string,
+	onChange: PropsTypes.func,
+	name: PropsTypes.string
+}
 
 export default function Select({ options, initialInputValue, onChange, name }) {
 

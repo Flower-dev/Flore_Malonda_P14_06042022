@@ -70,3 +70,26 @@ form {
         border-color: #FFFFFF;
     }
 }
+
+@media (max-width: 900px) {
+    .input-block-city {
+        flex-direction: column;
+    }
+
+    .input-block {
+        width: 100%;
+    }
+
+    .container-forminput {
+        width: 100%;
+    }
+
+    .datepicker {
+        margin-left: 10px;
+        margin-right: -10px;
+    }
+
+    .form-select {
+        margin-right: -10px; 
+    }
+}
