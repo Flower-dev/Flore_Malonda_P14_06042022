@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { styled } from '@mui/system';
 import Box from '@mui/material/Box';
 import Paper from '@mui/material/Paper';
@@ -186,7 +186,7 @@ export default function TableSearch({ tableHead, tableBody, defaultSort }) {
 	const [order, setOrder] = useState(defaultSort.order);
 	const [orderBy, setOrderBy] = useState(defaultSort.orderBy);
 	
-	// functions to agination
+	// functions to pagination
 	const emptyRows =
 		page > 0 ? Math.max(0, (1 + page) * rowsPerPage - tableBody.length) : 0;
 
@@ -248,61 +248,61 @@ export default function TableSearch({ tableHead, tableBody, defaultSort }) {
 
 	return (
 		<Paper sx={{ width: '100%', overflowY: 'auto', overflowX: 'auto'}}>
-		<Root sx={{ maxWidth: '100%' }}>
-			<input
-				className='search-table'
-				placeholder='Search ...'
-				value={searched}
-				onChange={handleFilterBySearch}
-        	/> 
-			<table>
-				<EnhancedTableHead
-					order={order}
-					orderBy={orderBy}
-					onRequestSort={handleRequestSort}
-					rowCount={tableBody.length}
-				/>
-				<tbody>
-					{stableSort(tableBody, getComparator(order, orderBy), searched)
-						.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-						.map((row, rowId) => (
-							<Row
-								key={rowId}
-								tableHead={tableHead}
-								data={row}
-							/>
-						)
-					)}
+			<Root sx={{ maxWidth: '100%' }}>
+				<input
+					className='search-table'
+					placeholder='Search ...'
+					value={searched}
+					onChange={handleFilterBySearch}
+				/> 
+				<table>
+					<EnhancedTableHead
+						order={order}
+						orderBy={orderBy}
+						onRequestSort={handleRequestSort}
+						rowCount={tableBody.length}
+					/>
+					<tbody>
+						{stableSort(tableBody, getComparator(order, orderBy), searched)
+							.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+							.map((row, rowId) => (
+								<Row
+									key={rowId}
+									tableHead={tableHead}
+									data={row}
+								/>
+							)
+						)}
 
-					{emptyRows > 0 && (
-						<tr style={{ height: 34 * emptyRows }}>
-							<td colSpan={3} />
+						{emptyRows > 0 && (
+							<tr style={{ height: 34 * emptyRows }}>
+								<td colSpan={3} />
+							</tr>
+						)}
+					</tbody>
+					<tfoot>
+						<tr>
+							<CustomTablePagination
+								rowsPerPageOptions={[5, 10, 25, { label: 'All', value: -1 }]}
+								count={tableBody.length}
+								rowsPerPage={rowsPerPage}
+								page={page}
+								componentsProps={{
+									select: {
+										'aria-label': 'rows per page',
+									},
+									actions: {
+										showFirstButton: true,
+										showLastButton: true,
+									},
+								}}
+								onPageChange={handleChangePage}
+								onRowsPerPageChange={handleChangeRowsPerPage}
+							/>
 						</tr>
-					)}
-				</tbody>
-				<tfoot>
-					<tr>
-						<CustomTablePagination
-							rowsPerPageOptions={[5, 10, 25, { label: 'All', value: -1 }]}
-							count={tableBody.length}
-							rowsPerPage={rowsPerPage}
-							page={page}
-							componentsProps={{
-								select: {
-									'aria-label': 'rows per page',
-								},
-								actions: {
-									showFirstButton: true,
-									showLastButton: true,
-								},
-							}}
-							onPageChange={handleChangePage}
-							onRowsPerPageChange={handleChangeRowsPerPage}
-						/>
-					</tr>
-				</tfoot>
-			</table>
-		</Root>
+					</tfoot>
+				</table>
+			</Root>
 		</Paper>
 	);
 }
