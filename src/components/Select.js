@@ -11,6 +11,20 @@ Select.PropsTypes = {
 	name: PropsTypes.string
 }
 
+/**
+ * Reusable react JS Select
+ * @module Select
+ * @param {array} - props options 
+ * @param {string} - props initialInputValue
+ */
+
+/**
+* @function onClick - handle dropdown menus click on option and on the opening button. 
+* @param {string}  optionValue - option that got click by user
+* @param {string} setInputValue - give value to the state hidden input
+* @params {function} onChange - update value
+*/
+
 export default function Select({ options, initialInputValue, onChange, name }) {
 
     const [inputValue, setInputValue] = useState(

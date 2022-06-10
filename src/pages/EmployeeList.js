@@ -6,14 +6,26 @@ import '../custom/pages/employeeList.scss';
 // assets
 import NoData from '../assets/img/noData.png';
 // -----------------------------------------------
+
+/**
+* EmployeeList page calling component TableSearch
+* @module EmployeeList
+*/
+
 export default function EmployeeList() {
     const [employeesInfos, setEmployeesInfos] = useState([]);
   
+    /**
+     * localStorage data recovery 
+     */
     useEffect( () => {
 		let data = JSON.parse(localStorage.getItem('infosEmployee'));
 		setEmployeesInfos(data);
 	}, []);
 
+    /**
+     * array with label and id to complete thead section
+     */
     const tableHead  = [
         { label: 'First Name', id: 'firstName' },
         { label: 'Last Name', id: 'lastName' },
@@ -25,6 +37,12 @@ export default function EmployeeList() {
         { label: 'Zip Code', id: 'zipCode' },
         { label: 'Department', id: 'department' },
     ]
+
+    /**
+     * complete tbody with the info present in the InfoEmployee table
+     * @params {array} employeesInfos
+     * push data in 2 arrays : values & labels
+     */
 
     const tableBody = employeesInfos?.map((employee) => {
 		const values = [];
@@ -62,6 +80,10 @@ export default function EmployeeList() {
 		return { value: dataValues, label: dataLabels };
 	});
 
+
+    /**
+     * return component TableSeach or a card with img and text if employeesInfos.length = 0
+     */
 
     return (
         <>

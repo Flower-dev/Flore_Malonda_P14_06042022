@@ -9,6 +9,11 @@ import '../custom/components/header.scss';
 
 // ----------------------------------------------------
 
+
+/**
+ * A simple header with a title and 2 links (nav and change page)
+ * @module Header
+ */
 export default function Header() {
     return (
         <div className='header-container'>

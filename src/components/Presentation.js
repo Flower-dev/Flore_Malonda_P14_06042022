@@ -5,6 +5,11 @@ import '../custom/components/presentation.scss';
 
 // ------------------------------------------
 
+/**
+ * Simple section with a title and an illustration 
+ * @module Presentation
+ */
+
 export default function Presentation () {
     return (
         <>

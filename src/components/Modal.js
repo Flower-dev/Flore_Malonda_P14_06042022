@@ -11,6 +11,15 @@ Modal.propTypes = {
     title: PropTypes.string
 };
 
+/**
+ * Reusable modal 
+ * @module Modal
+ * @param {string} - props title (required) and info, alt, img ....
+ * @param { function } - props hide :  function to close modal
+ * @param { boolean } - props isShowing  : should the modal open ?
+ * @returns 
+ */
+
 export default function Modal({ isShowing, hide, title, info, img, alt, ...props  }) {
     return (
         isShowing

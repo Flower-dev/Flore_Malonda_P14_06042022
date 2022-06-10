@@ -16,6 +16,11 @@ FormInput.defaultProps = {
     min: '0'
 }
 
+/**
+ * Reusable react JS input
+ * @module Input
+ */
+
 export default function FormInput({ type, name, placeholder, onChange, required, min }) {
     
     const [initialValue, setInitialValue] = useState('');

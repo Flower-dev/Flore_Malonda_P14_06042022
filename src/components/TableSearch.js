@@ -12,6 +12,8 @@ import  PropTypes from 'prop-types';
 
 // ------------------------------------- Style -----------------------------------------------------
 
+// custom content table
+
 const Root = styled('div')(
 	({theme}) => `
 	table {
@@ -37,6 +39,7 @@ const Root = styled('div')(
 	`,
 );
 
+// custom table pagination
 const CustomTablePagination = styled(TablePaginationUnstyled)(
 	({theme}) => `
 	& .${classes.spacer} {
@@ -106,7 +109,12 @@ const CustomTablePagination = styled(TablePaginationUnstyled)(
 	`,
 );
 
-// function to create tableBody 
+/**
+ * Function to create row in tbody
+ * @module Row
+ * @params { array } tableHead 
+ * @params { object } data
+ */
 
 	Row.propTypes = {
 		tableHead: PropTypes.array,
@@ -144,6 +152,8 @@ TableSearch.defaultProps = {
 	defaultSort: { order: 'asc', orderBy: null}
 }
 
+// function sort 
+
 function descendingComparator(a, b, orderBy) {
 	if (b[orderBy] < a[orderBy]) {
 	  return -1;
@@ -160,6 +170,13 @@ function getComparator(order, orderBy) {
 	  : (a, b) => -descendingComparator(a, b, orderBy);
 }
   
+/**
+ * function to filter and sort tbody 
+ * @param {*} array 
+ * @param {*} comparator 
+ * @param {*} query 
+ * @returns 
+ */
 
 function stableSort(array, comparator, query) {
 	const stabilizedThis = array.map((el, index) => [el.value, el.label, index]);
@@ -186,7 +203,7 @@ export default function TableSearch({ tableHead, tableBody, defaultSort }) {
 	const [order, setOrder] = useState(defaultSort.order);
 	const [orderBy, setOrderBy] = useState(defaultSort.orderBy);
 	
-	// functions to pagination
+	// function to pagination
 	const emptyRows =
 		page > 0 ? Math.max(0, (1 + page) * rowsPerPage - tableBody.length) : 0;
 
@@ -245,6 +262,10 @@ export default function TableSearch({ tableHead, tableBody, defaultSort }) {
 	const handleFilterBySearch = (e) => {
 		setSearched(e.target.value)
 	}
+
+	/**
+	 * return table with components Rows and EnhancedTableHead
+	 */
 
 	return (
 		<Paper sx={{ width: '100%', overflowY: 'auto', overflowX: 'auto'}}>

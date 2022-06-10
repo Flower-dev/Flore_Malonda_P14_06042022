@@ -43,6 +43,14 @@ export default function CreateEmployee() {
 		zipCode, 
 	};
 
+
+    /**
+     * function to submit form and open modal 
+     * add an employee in localStorage
+     * @param {array} - arrInfos 
+     * @param {object} - infoEmployee 
+}    * @param {function} - toggle (open modal after submeit)
+     */
     const handleSubmit = (e) => {
 		e.preventDefault();
 		arrInfos.push(infosEmployee);
@@ -50,6 +58,11 @@ export default function CreateEmployee() {
 		localStorage.setItem('infosEmployee', infosEmployeeStorage);
         toggle()
 	};
+
+    /**
+     * @module CreateEmployee
+     * return create employee form -> used in file Home.js
+     */
 
     return (
         <Fragment>
